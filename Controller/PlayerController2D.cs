@@ -40,18 +40,18 @@ public class PlayerController2D : MonoBehaviour, IController2D
     public string currentState;
 
     // Interal variables
-    private PlayerTerrainState stateMachine;
-    private PlayerJump jump;
-    private PlayerMovement move;
-    private PlayerDash dash;
+    private ITerrainState stateMachine;
+    private IJump jump;
+    private IMovement move;
+    private IDash dash;
 
     // Use this for initialization
     void Awake()
     {
-        stateMachine = GetComponent<PlayerTerrainState>();
-        jump = GetComponent<PlayerJump>();
-        move = GetComponent<PlayerMovement>();
-        dash = GetComponent<PlayerDash>();
+        stateMachine = GetComponent<ITerrainState>();
+        jump = GetComponent<IJump>();
+        move = GetComponent<IMovement>();
+        dash = GetComponent<IDash>();
     }
 
     private void Update()
