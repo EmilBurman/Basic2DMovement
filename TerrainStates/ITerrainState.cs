@@ -4,5 +4,8 @@ using UnityEngine;
 
 public interface ITerrainState
 {
-    string GetState();
+    bool Grounded();
+    bool Airborne();
+    bool WallLeft();
+    bool WallRight();
 }
