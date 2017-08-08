@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController2D : IController2D
+public class PlayerController2D : MonoBehaviour, IController2D
 {
     //Interface-----------------------------
     public float Move()
