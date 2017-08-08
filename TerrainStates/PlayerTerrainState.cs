@@ -7,9 +7,25 @@ using UnityEngine;
 public class PlayerTerrainState : MonoBehaviour, ITerrainState
 {
     //Interface--------------------
-    public string GetState()
+
+    public bool Grounded()
     {
-        return state;
+        return IsGrounded();
+    }
+
+    public bool Airborne()
+    {
+        return (!IsGrounded());
+    }
+
+    public bool WallLeft()
+    {
+        return IsWallClimbingLeft();
+    }
+
+    public bool WallRight()
+    {
+        return IsWallClimbingRight();
     }
     //End interface----------------
 
@@ -34,21 +50,6 @@ public class PlayerTerrainState : MonoBehaviour, ITerrainState
         groundCheckDistanceX = (GetComponent<Collider2D>().bounds.extents.x + 0.06f) / 1.18f;
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         length = 0.03f;
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if (IsGrounded())
-            state = "Grounded";
-        else
-        {
-            state = "Airborne";
-            if (IsWallClimbingRight())
-                state = "WallClimbingRight";
-            if (IsWallClimbingLeft())
-                state = "WallclimbingLeft";
-        }
     }
 
     bool IsGrounded()
