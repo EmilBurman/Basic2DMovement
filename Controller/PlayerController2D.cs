@@ -65,30 +65,30 @@ public class PlayerController2D : MonoBehaviour, IController2D
     // Update is called once per frame
     void FixedUpdate()
     {
-        currentState = stateMachine.GetState().ToLower();
-
-        switch (currentState)
+        if (currentState.Grounded())
         {
-            case "grounded":
                 jump.Grounded(jumpButton, sprintButton);
                 move.Grounded(horizontalAxis, sprintButton);
                 dash.ResetDash();
-                break;
-            case "airborne":
+        }
+        else if(currentState.Airborne())
+        {
                 jump.Airborne(jumpButton);
                 move.Airborne(horizontalAxis, sprintButton);
                 dash.Dash(horizontalAxis, dashButton);
-                break;
-            case "wallclimbingright":
-                jump.RightWall(jumpButton);
-                move.Wallride(horizontalAxis, sprintButton);
-                dash.ResetDash();
-                break;
-            case "wallclimbingleft":
-                jump.LeftWall(jumpButton);
-                move.Wallride(horizontalAxis, sprintButton);
-                dash.ResetDash();
-                break;
+        
+            if (currentState.WallLeft())
+            {
+                    jump.RightWall(jumpButton);
+                    move.Wallride(horizontalAxis, sprintButton);
+                    dash.ResetDash();
+            }
+            if (currentState.WallRight())
+            {
+                    jump.LeftWall(jumpButton);
+                    move.Wallride(horizontalAxis, sprintButton);
+                    dash.ResetDash();
+            }
         }
     }
 }
