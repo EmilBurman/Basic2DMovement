@@ -2,37 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveBehavior : MonoBehaviour
+public class DashBehavior : MonoBehaviour
 {
     private IController2D controller;
     private ITerrainState stateMachine;
-    private IMovement move;
+    private IDash dash;
 
     void Awake()
     {
         controller = GetComponent<IController2D>();
         stateMachine = GetComponent<ITerrainState>();
-        move = GetComponent<IMovement>();
+        dash = GetComponent<IDash>();
     }
 
     void Update()
     {
+        controller.Dash();
         controller.Move();
-        controller.Sprint();
     }
-
 
     void FixedUpdate()
     {
         if (stateMachine.Grounded())
-            move.Grounded(controller.Move(), controller.Sprint());
+            dash.ResetDash();
         else if (stateMachine.Airborne())
         {
-            move.Airborne(controller.Move(), controller.Sprint());
+            dash.Dash(controller.Move(), controller.Dash());
             if (stateMachine.WallLeft())
-                move.Wallride(controller.Move(), controller.Sprint());
+                dash.ResetDash();
             if (stateMachine.WallRight())
-                move.Wallride(controller.Move(), controller.Sprint());
+                dash.ResetDash();
         }
     }
 }

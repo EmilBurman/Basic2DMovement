@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJump : MonoBehaviour, IJump
+public class HeroicJump : MonoBehaviour, IJump
 {
     //Interface----------------------------
     public void Grounded(bool jump, bool sprint)

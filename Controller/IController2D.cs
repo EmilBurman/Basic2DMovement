@@ -4,9 +4,9 @@ using UnityEngine;
 
 public interface IController2D
 {
-    void Move();
-    void Jump();
-    void Dash();
-    void Sprint();
-    void Shadowstep();
+    float Move();
+    bool Jump();
+    bool Dash();
+    bool Sprint();
+    bool Shadowstep();
 }

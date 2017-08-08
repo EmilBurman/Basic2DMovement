@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour, IMovement
+public class HeroicMovement : MonoBehaviour, IMovement
 {
     // Interface-------------------------------------------
     public void Airborne(float horizontalAxis, bool sprint)

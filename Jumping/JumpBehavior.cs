@@ -2,37 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveBehavior : MonoBehaviour
+public class JumpBehavior : MonoBehaviour
 {
     private IController2D controller;
     private ITerrainState stateMachine;
-    private IMovement move;
+    private IJump jump;
 
     void Awake()
     {
         controller = GetComponent<IController2D>();
         stateMachine = GetComponent<ITerrainState>();
-        move = GetComponent<IMovement>();
+        jump = GetComponent<IJump>();
     }
 
     void Update()
     {
         controller.Move();
         controller.Sprint();
+        controller.Jump();
     }
-
 
     void FixedUpdate()
     {
         if (stateMachine.Grounded())
-            move.Grounded(controller.Move(), controller.Sprint());
+            jump.Grounded(controller.Jump(), controller.Sprint());
         else if (stateMachine.Airborne())
         {
-            move.Airborne(controller.Move(), controller.Sprint());
+            jump.Airborne(controller.Jump());
             if (stateMachine.WallLeft())
-                move.Wallride(controller.Move(), controller.Sprint());
+                jump.LeftWall(controller.Jump());
             if (stateMachine.WallRight())
-                move.Wallride(controller.Move(), controller.Sprint());
+                jump.RightWall(controller.Jump());
         }
     }
 }
