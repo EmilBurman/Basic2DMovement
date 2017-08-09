@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +8,7 @@ public class PlayerController2D : MonoBehaviour, IController2D
     //Interface-----------------------------
     public float Move()
     {
-        if (!SlowReverse())
+        if (SlowReverse())
             return 0f;
         else
             return Input.GetAxisRaw("Horizontal");
@@ -16,7 +16,7 @@ public class PlayerController2D : MonoBehaviour, IController2D
 
     public bool Jump()
     {
-        if (!SlowReverse())
+        if (SlowReverse())
             return false;
         else
             return Input.GetButtonDown("Jump");
@@ -24,7 +24,7 @@ public class PlayerController2D : MonoBehaviour, IController2D
 
     public bool Dash()
     {
-        if (!SlowReverse())
+        if (SlowReverse())
             return false;
         else
             return Input.GetButtonDown("Dash");
@@ -32,7 +32,7 @@ public class PlayerController2D : MonoBehaviour, IController2D
 
     public bool Sprint()
     {
-        if (!SlowReverse())
+        if (SlowReverse())
             return false;
         else
             return Input.GetButton("Sprint");
