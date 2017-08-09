@@ -10,5 +10,4 @@ public interface IController2D
     bool Sprint();
     bool FlashReverse();
     bool SlowReverse();
-    bool DisableInput();
 }
