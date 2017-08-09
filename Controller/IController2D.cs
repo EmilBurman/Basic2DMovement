@@ -8,5 +8,7 @@ public interface IController2D
     bool Jump();
     bool Dash();
     bool Sprint();
-    bool Shadowstep();
+    bool FlashReverse();
+    bool SlowReverse();
+    bool DisableInput();
 }
