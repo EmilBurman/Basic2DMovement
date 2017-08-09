@@ -26,7 +26,12 @@ public class PlayerController2D : MonoBehaviour, IController2D
         return Input.GetButton("Sprint");
     }
 
-    public bool Shadowstep()
+    public bool FlashReverse()
+    {
+        throw new NotImplementedException();
+    }
+    
+    public bool SlowReverse()
     {
         throw new NotImplementedException();
     }
