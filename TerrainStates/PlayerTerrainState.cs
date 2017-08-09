@@ -7,7 +7,6 @@ using UnityEngine;
 public class PlayerTerrainState : MonoBehaviour, ITerrainState
 {
     //Interface--------------------
-
     public bool Grounded()
     {
         return IsGrounded();

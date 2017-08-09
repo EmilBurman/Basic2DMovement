@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeControllBehavior : MonoBehaviour {
+public class TimeControllBehavior : MonoBehaviour
+{
 
     private IController2D controller;
     private ITimeControll timeControll;
