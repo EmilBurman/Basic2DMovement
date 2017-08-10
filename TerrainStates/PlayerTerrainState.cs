@@ -19,12 +19,12 @@ public class PlayerTerrainState : MonoBehaviour, ITerrainState
 
     public bool WallLeft()
     {
-        return IsWallClimbingLeft();
+        return CheckWallLeft();
     }
 
     public bool WallRight()
     {
-        return IsWallClimbingRight();
+        return CheckWallRight();
     }
     //End interface----------------
 
@@ -65,7 +65,7 @@ public class PlayerTerrainState : MonoBehaviour, ITerrainState
 
         return (bottomGround1 || bottomGround2 || bottomGround3) ? true : false;
     }
-    bool IsWallClimbingLeft()
+    bool CheckWallLeft()
     {
         Color color;
         bool leftWall1 = Physics2D.Raycast(new Vector2(rigidbody2D.transform.position.x - groundCheckDistanceX, rigidbody2D.transform.position.y), Vector2.left, length, wallLayer);
@@ -79,7 +79,7 @@ public class PlayerTerrainState : MonoBehaviour, ITerrainState
 
         return (leftWall1 || leftWall2 || leftWall3) ? true : false;
     }
-    bool IsWallClimbingRight()
+    bool CheckWallRight()
     {
         Color color;
         bool rightWall1 = Physics2D.Raycast(new Vector2(rigidbody2D.transform.position.x + groundCheckDistanceX, rigidbody2D.transform.position.y), Vector2.right, length, wallLayer);
