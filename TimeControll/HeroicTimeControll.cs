@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,6 +45,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
     private int reverseCounter = 0;
 
     // Variables to interpolate between keyframes
+
     private Vector2 currentPosition;
     private Vector2 previousPosition;
 
@@ -66,24 +67,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
             }
         }
         else
-        {
-            if (reverseCounter > 0)
-                reverseCounter -= 1;
-            else
-            {
-                reverseCounter = keyframe;
-                RestorePositions();
-            }
-
-            if (firstRun)
-            {
-                firstRun = false;
-                RestorePositions();
-            }
-
-            float interpolation = (float)reverseCounter / (float)keyframe;
-            entity.transform.position = Vector2.Lerp(previousPosition, currentPosition, interpolation);
-        }
+            StartCoroutine(ReverseEntityTimeFlow());
 
         if (keyframes.Count > 15)
             keyframes.RemoveAt(0);
@@ -99,6 +83,27 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
             currentPosition = (keyframes[lastIndex] as Keyframe).position;
             previousPosition = (keyframes[secondToLastIndex] as Keyframe).position;
             keyframes.RemoveAt(lastIndex);
+        }
+    }
+    
+    IEnumerator ReverseEntityTimeFlow()
+    {
+	    if (reverseCounter > 0)
+                reverseCounter -= 1;
+        else
+            {
+                reverseCounter = keyframe;
+                RestorePositions();
+            }
+
+            if (firstRun)
+            {
+                firstRun = false;
+                RestorePositions();
+            }
+            float interpolation = (float)reverseCounter / (float)keyframe;
+            entity.transform.position = Vector2.Lerp(previousPosition, currentPosition, interpolation);
+            yield return 0; //go to next frame
         }
     }
 }
