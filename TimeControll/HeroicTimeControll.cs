@@ -124,22 +124,24 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
     
     IEnumerator ReverseEntityTimeFlow()
     {
-	if (reverseCounter > 0)
-        	reverseCounter -= 1;
-        else
-            {
-                reverseCounter = keyframe;
-                RestorePositions();
-            }
+    	while (isReversing)
+	{
+		if (reverseCounter > 0)
+        		reverseCounter -= 1;
+        	else
+            	{
+                	reverseCounter = keyframe;
+                	RestorePositions();
+            	}
 
-            if (firstRun)
-            {
-                firstRun = false;
-                RestorePositions();
-            }
-            float interpolation = (float)reverseCounter / (float)keyframe;
-            entity.transform.position = Vector2.Lerp(previousPosition, currentPosition, interpolation);
-            yield return 0; //go to next frame
+            	if (firstRun)
+            	{
+                	firstRun = false;
+                	RestorePositions();
+            	}
+            	float interpolation = (float)reverseCounter / (float)keyframe;
+            	entity.transform.position = Vector2.Lerp(previousPosition, currentPosition, interpolation);
+            	yield return 0; //go to next frame
         }
     }
 }
