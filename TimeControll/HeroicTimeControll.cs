@@ -8,9 +8,9 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
     // Interface--------------------
     public void FlashReverse(bool flashReverse)
     {
-        if (flashReverse)
+        if (flashReverse && (timeState == TimeState.Ready))
         {
-            entity.transform.position = (positionArray[0] as Position).position;
+            entity.transform.position = (positionArray[0] as PositionArray).position;
             positionArray.Clear();
         }
     }
@@ -25,19 +25,39 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
             isReversing = false;
         }
     }
+
+    public ArrayList GetPositionArray()
+    {
+        return positionArray;
+    }
+
+    float ITimeControll.interpolation
+    {
+        get
+        {
+            return interpolation;
+        }
+
+        set
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     // End interface----------------
 
     // Set which entity to track
     public GameObject entity;
     private ArrayList positionArray;
+    float interpolation;
 
     //Checks for if player is reversing
     private bool isReversing = false;
     private bool firstCycle = true;
-    
+
     // Cooldown and state variables
     private TimeState timeState;
-    float reverseTimer; 			// Shows the current cooldown.
+    float reverseTimer; 			            // Shows the current cooldown.
     float reverseCooldownLimit = 5f;        	// Sets the cooldown of the dash in seconds.
 
     //Determine how much to save
@@ -53,11 +73,10 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
     private Vector2 currentPosition;
     private Vector2 previousPosition;
 
-
     void Start()
     {
         positionArray = new ArrayList();
-	timeState = TimeState.Ready;
+        timeState = TimeState.Ready;
     }
 
     void FixedUpdate()
@@ -68,8 +87,8 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
                 frameCounter += 1;
             else
             {
-		frameCounter = 0;
-                positionArray.Add(new Position(entity.transform.position);
+                frameCounter = 0;
+                positionArray.Add(new PositionArray(entity.transform.position));
             }
         }
         else
@@ -86,15 +105,15 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
 
         if (secondToLastIndex >= 0)
         {
-            currentPosition = (positionArray[lastIndex] as Position).position;
-            previousPosition = (positionArray[secondToLastIndex] as Position).position;
+            currentPosition = (positionArray[lastIndex] as PositionArray).position;
+            previousPosition = (positionArray[secondToLastIndex] as PositionArray).position;
             positionArray.RemoveAt(lastIndex);
         }
     }
-    
+
     private void ReverseAbility()
     {
-	switch (timeState)
+        switch (timeState)
         {
             case TimeState.Ready:
                 if (isReversing)
@@ -116,33 +135,33 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
                 reverseTimer -= Time.deltaTime;
                 if (reverseTimer <= 0)
                 {
-                    reverseTimer  = 0;
+                    reverseTimer = 0;
                     timeState = TimeState.Ready;
                 }
                 break;
         }
     }
-    
+
     IEnumerator ReverseEntityTimeFlow()
     {
-    	while (isReversing)
-	{
-		if (reverseCounter > 0)
-        		reverseCounter -= 1;
-        	else
-            	{
-                	reverseCounter = keyframe;
-                	RestorePositions();
-            	}
+        while (isReversing)
+        {
+            if (reverseCounter > 0)
+                reverseCounter -= 1;
+            else
+            {
+                reverseCounter = keyframe;
+                RestorePositions();
+            }
 
-            	if (firstCycle)
-            	{
-                	firstCycle = false;
-                	RestorePositions();
-            	}
-            	float interpolation = (float)reverseCounter / (float)keyframe;
-            	entity.transform.position = Vector2.Lerp(previousPosition, currentPosition, interpolation);
-            	yield return 0; //go to next frame
+            if (firstCycle)
+            {
+                firstCycle = false;
+                RestorePositions();
+            }
+            interpolation = (float)reverseCounter / (float)keyframe;
+            entity.transform.position = Vector2.Lerp(previousPosition, currentPosition, interpolation);
+            yield return 0; //go to next frame
         }
     }
 }
@@ -157,9 +176,8 @@ public enum TimeState
 public class PositionArray
 {
     public Vector2 position;
-    public Vector2 velocity;
 
-    public Position(Vector2 position)
+    public PositionArray(Vector2 position)
     {
         this.position = position;
     }
