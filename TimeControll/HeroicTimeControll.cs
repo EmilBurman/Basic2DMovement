@@ -96,7 +96,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
 	switch (timeState)
         {
             case TimeState.Ready:
-                if (dash)
+                if (isReversing)
                 {
                     StartCoroutine(ReverseEntityTimeFlow());
                     timeState = TimeState.Reversing;
