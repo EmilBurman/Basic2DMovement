@@ -21,7 +21,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
             isReversing = true;
         else
         {
-            firstPositionCycle = true;
+            firstCycle = true;
             isReversing = false;
         }
     }
@@ -33,7 +33,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
 
     //Checks for if player is reversing
     private bool isReversing = false;
-    private bool firstPositionCycle = true;
+    private bool firstCycle = true;
     
     // Cooldown and state variables
     private TimeState timeState;
@@ -135,9 +135,9 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
                 	RestorePositions();
             	}
 
-            	if (firstPositionCycle)
+            	if (firstCycle)
             	{
-                	firstPositionCycle = false;
+                	firstCycle = false;
                 	RestorePositions();
             	}
             	float interpolation = (float)reverseCounter / (float)keyframe;
