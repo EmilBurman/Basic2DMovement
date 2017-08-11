@@ -10,14 +10,14 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
     {
         if (flashReverse)
         {
-            entity.transform.position = (keyframes[0] as Keyframe).position;
-            keyframes.Clear();
+            entity.transform.position = (positionArray[0] as Position).position;
+            positionArray.Clear();
         }
     }
 
     public void SlowReverse(bool reversing)
     {
-        if (reversing && keyframes.Count > 1)
+        if (reversing && positionArray.Count > 1)
             isReversing = true;
         else
         {
