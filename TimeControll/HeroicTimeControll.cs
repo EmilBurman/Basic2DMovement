@@ -11,6 +11,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
         if (flashReverse && (timeState == TimeState.Ready))
         {
             entity.transform.position = (positionArray[0] as PositionArray).position;
+            timeState = TimeState.Reversing;
             positionArray.Clear();
         }
     }
@@ -26,24 +27,10 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
         }
     }
 
-    public ArrayList GetPositionArray()
+    public Vector2 GetPositionFromArrayAt(int pos)
     {
-        return positionArray;
+        return (positionArray[pos] as PositionArray).position;
     }
-
-    float ITimeControll.interpolation
-    {
-        get
-        {
-            return interpolation;
-        }
-
-        set
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     // End interface----------------
 
     // Set which entity to track
@@ -52,12 +39,12 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
     float interpolation;
 
     //Checks for if player is reversing
-    private bool isReversing = false;
-    private bool firstCycle = true;
+    bool isReversing = false;
+    bool firstCycle = true;
 
     // Cooldown and state variables
     private TimeState timeState;
-    float reverseTimer; 			            // Shows the current cooldown.
+    public float reverseTimer; 			            // Shows the current cooldown.
     float reverseCooldownLimit = 5f;        	// Sets the cooldown of the dash in seconds.
 
     //Determine how much to save
@@ -73,10 +60,15 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
     private Vector2 currentPosition;
     private Vector2 previousPosition;
 
+    // Spawn/destory for the point of max return.
+    Spawn returnPoint;
+
     void Start()
     {
         positionArray = new ArrayList();
+        returnPoint = GetComponent<Spawn>();
         timeState = TimeState.Ready;
+        returnPoint.SpawnObject(true);
     }
 
     void FixedUpdate()
@@ -91,8 +83,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
                 positionArray.Add(new PositionArray(entity.transform.position));
             }
         }
-        else
-            ReverseAbility();
+        ReverseAbility();
 
         if (positionArray.Count > 15)
             positionArray.RemoveAt(0);
@@ -128,6 +119,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
                 if (reverseTimer >= reverseCooldownLimit)
                 {
                     reverseTimer = reverseCooldownLimit;
+                    returnPoint.DestroyGameObject();
                     timeState = TimeState.Cooldown;
                 }
                 break;
@@ -136,6 +128,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
                 if (reverseTimer <= 0)
                 {
                     reverseTimer = 0;
+                    returnPoint.SpawnObject(true);
                     timeState = TimeState.Ready;
                 }
                 break;
@@ -159,7 +152,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
                 firstCycle = false;
                 RestorePositions();
             }
-            interpolation = (float)reverseCounter / (float)keyframe;
+            interpolation = reverseCounter / keyframe;
             entity.transform.position = Vector2.Lerp(previousPosition, currentPosition, interpolation);
             yield return 0; //go to next frame
         }
