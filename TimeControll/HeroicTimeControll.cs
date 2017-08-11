@@ -29,7 +29,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
 
     // Set which entity to track
     public GameObject entity;
-    private ArrayList keyframes;
+    private ArrayList positionArray;
 
     //Checks for if player is reversing
     private bool isReversing = false;
@@ -56,7 +56,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
 
     void Start()
     {
-        keyframes = new ArrayList();
+        positionArray = new ArrayList();
     }
 
     void FixedUpdate()
@@ -68,26 +68,26 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
             else
             {
 		frameCounter = 0;
-                keyframes.Add(new Keyframe(entity.transform.position/*, entity.transform.velocity*/));
+                positionArray.Add(new Position(entity.transform.position);
             }
         }
         else
             ReverseAbility();
 
-        if (keyframes.Count > 15)
-            keyframes.RemoveAt(0);
+        if (positionArray.Count > 15)
+            positionArray.RemoveAt(0);
     }
 
     void RestorePositions()
     {
-        int lastIndex = keyframes.Count - 1;
-        int secondToLastIndex = keyframes.Count - 2;
+        int lastIndex = positionArray.Count - 1;
+        int secondToLastIndex = positionArray.Count - 2;
 
         if (secondToLastIndex >= 0)
         {
-            currentPosition = (keyframes[lastIndex] as Keyframe).position;
-            previousPosition = (keyframes[secondToLastIndex] as Keyframe).position;
-            keyframes.RemoveAt(lastIndex);
+            currentPosition = (positionArray[lastIndex] as Position).position;
+            previousPosition = (positionArray[secondToLastIndex] as Position).position;
+            positionArray.RemoveAt(lastIndex);
         }
     }
     
@@ -151,12 +151,12 @@ public enum TimeState
     Cooldown
 }
 
-public class Keyframe
+public class PositionArray
 {
     public Vector2 position;
     public Vector2 velocity;
 
-    public Keyframe(Vector2 position)
+    public Position(Vector2 position)
     {
         this.position = position;
     }
