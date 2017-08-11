@@ -57,6 +57,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
     void Start()
     {
         positionArray = new ArrayList();
+	timeState = TimeState.Ready;
     }
 
     void FixedUpdate()
