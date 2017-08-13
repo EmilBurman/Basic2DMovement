@@ -8,10 +8,10 @@ public class Spawn : MonoBehaviour
     public GameObject prefab;
     GameObject obj;
 
-    public void SpawnObject(bool ifChild)
+    public void SpawnObject(bool asChild)
     {
         obj = Instantiate(prefab);
-        if (ifChild) obj.transform.parent = gameObject.transform;
+        if (asChild) obj.transform.parent = gameObject.transform;
     }
 
     public void DestroyGameObject()

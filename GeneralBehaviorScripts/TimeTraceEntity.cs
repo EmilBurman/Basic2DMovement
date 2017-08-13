@@ -15,7 +15,6 @@ public class TimeTraceEntity : MonoBehaviour
     // Get the linerenderer on this object
     LineRenderer entityTrail;
 
-
     void Start()
     {
         traceEntity = transform.parent.gameObject;
@@ -26,9 +25,10 @@ public class TimeTraceEntity : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    void LateUpdate()
     {
-        transform.position = Vector2.Lerp(transform.position, timeControllScript.GetPositionFromArrayAt(1), 5f);
+        transform.parent = null;
+        transform.position = Vector2.Lerp(transform.position, timeControllScript.GetPositionFromArrayAt(1), 0.3f);
     }
 
 }
