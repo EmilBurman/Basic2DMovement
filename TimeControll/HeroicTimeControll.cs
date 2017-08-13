@@ -61,12 +61,12 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
     private Vector2 previousPosition;
 
     // Spawn/destory for the point of max return.
-    Spawn returnPoint;
+    SpawnBehavior returnPoint;
 
     void Start()
     {
         positionArray = new ArrayList();
-        returnPoint = GetComponent<Spawn>();
+        returnPoint = GetComponent<SpawnBehavior>();
         timeState = TimeState.Ready;
         returnPoint.SpawnObject(true);
     }
