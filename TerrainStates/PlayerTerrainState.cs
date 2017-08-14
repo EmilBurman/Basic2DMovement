@@ -26,19 +26,18 @@ public class PlayerTerrainState : MonoBehaviour, ITerrainState
     {
         return CheckWallRight();
     }
-    //End interface----------------
-
+    //End interface---------------
 
     // Public variables for terrain checks.
     public LayerMask groundLayer;                           // Layermask variable to check for ground layer.
-    public LayerMask wallLayer;                             // Layermask variable to check for ground layer.
+    public LayerMask wallLayer;                             // Layermask variable to check for wall layer.
+    public float groundCheckDistanceY;                      // Defines the distance to start checking if the entity is grounded.
+    public float groundCheckDistanceX;                      // Defines the distance to start checking if the entity is touching a wall.
     public string state;
 
     // Internal system variables.
     private Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
-    private SpriteRenderer mySpriteRenderer;                // Player sprite.
-    private float groundCheckDistanceY;                     // Defines the distance to start checking if the player is grounded.
-    private float groundCheckDistanceX;                     // Defines the distance to start checking if the player is grounded.
+    private SpriteRenderer mySpriteRenderer;                // Entity sprite sprite
     private float length;                                   // Defines the distance to check for terrain.
 
     // Use this for initialization
