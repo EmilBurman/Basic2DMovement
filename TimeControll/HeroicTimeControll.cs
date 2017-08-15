@@ -156,6 +156,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
             entity.transform.position = Vector2.Lerp(previousPosition, currentPosition, interpolation);
             yield return 0; //go to next frame
         }
+        entity.transform.position = new Vector2(0, 0);
     }
 }
 
