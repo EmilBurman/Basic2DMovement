@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrawlerController2D : MonoBehaviour, IController2D
+public class PatrolController2D : MonoBehaviour, IController2D
 {
     //Interface----------------------------
     public bool Dash()
@@ -38,7 +38,7 @@ public class CrawlerController2D : MonoBehaviour, IController2D
     //End interface-------------------------
 
     private ITerrainState stateMachine;
-    public CrawlerState crawlState;                     // Shows the current state of dashing.
+    public PatrolState patrolState;                     // Shows the current state of dashing.
     float direction;
     // Use this for initialization
     void Start()
@@ -47,36 +47,36 @@ public class CrawlerController2D : MonoBehaviour, IController2D
     }
     private void Update()
     {
-        CrawlStateCheck();
+        PatrolStateCheck();
     }
 
-    private void CrawlStateCheck()
+    private void PatrolStateCheck()
     {
-        switch (crawlState)
+        switch (patrolState)
         {
-            case CrawlerState.CrawlRight:
+            case PatrolState.PatrolRight:
                 if (!stateMachine.WallRight() && stateMachine.Grounded())
                 {
                     direction = 1;
                 }
                 else
-                    crawlState = CrawlerState.CrawlLeft;
+                    patrolState = PatrolState.PatrolLeft;
                 break;
-            case CrawlerState.CrawlLeft:
+            case CrawlerState.PatrolLeft:
                 if (!stateMachine.WallLeft() && stateMachine.Grounded())
                 {
                     direction = -1;
                 }
                 else
-                    crawlState = CrawlerState.CrawlRight;
+                    patrolState = PatrolState.PatrolRight;
                 break;
         }
     }
 }
 
-public enum CrawlerState
+public enum PatrolState
 {
-    CrawlRight,
-    CrawlLeft,
+    PatrolRight,
+    PatrolLeft,
     Stop
 }
