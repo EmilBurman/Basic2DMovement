@@ -62,7 +62,7 @@ public class PatrolController2D : MonoBehaviour, IController2D
                 else
                     patrolState = PatrolState.PatrolLeft;
                 break;
-            case CrawlerState.PatrolLeft:
+            case PatrolState.PatrolLeft:
                 if (!stateMachine.WallLeft() && stateMachine.Grounded())
                 {
                     direction = -1;
