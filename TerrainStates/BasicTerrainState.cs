@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class HeroicTerrainState : MonoBehaviour, ITerrainState
+public class BasicTerrainState : MonoBehaviour, ITerrainState
 {
     //Interface--------------------
     public bool Grounded()
@@ -26,6 +26,14 @@ public class HeroicTerrainState : MonoBehaviour, ITerrainState
     {
         return CheckWallRight();
     }
+    public bool EdgeRight()
+    {
+        return CheckEdgeRight();
+    }
+    public bool EdgeLeft()
+    {
+        return CheckEdgeLeft();
+    }
     //End interface---------------
 
     // Layermasks
@@ -41,6 +49,9 @@ public class HeroicTerrainState : MonoBehaviour, ITerrainState
     public float wallCheckSpacing = 2f;                             // Determines how to space out the top and bottom wall checks.
     public float xAxisRayCastStartPoint = 0.01f;                    // Defines how far out from the collider to check for the walls.
     float xAxisExtendFromCollider;                                  // Gets collider and sets raycast starting point for the ground.
+
+    //Checks for platform edges.
+    public float edgeCheckSpacing = 2f;                             // Determines how to space out the top and bottom wall checks.
 
     // Internal system variables.
     Rigidbody2D rigidbody2D;                                        // Reference to the player's rigidbody.
@@ -102,5 +113,21 @@ public class HeroicTerrainState : MonoBehaviour, ITerrainState
         Debug.DrawRay(new Vector2(rigidbody2D.transform.position.x + xAxisExtendFromCollider, rigidbody2D.transform.position.y + wallCheckSpacing), Vector2.right, color = Color.red, 0.1f);
 
         return (rightCenterCheck || rightBottomCheck || rightTopCheck) ? true : false;
+    }
+    bool CheckEdgeRight()
+    {
+        Color color;
+        bool rightEdgeCheck = Physics2D.Raycast(new Vector2(rigidbody2D.transform.position.x + edgeCheckSpacing, rigidbody2D.transform.position.y - yAxisExtendFromCollider), Vector2.down, groundDistanceCheck, groundLayer);
+        Debug.DrawRay(new Vector2(rigidbody2D.transform.position.x + edgeCheckSpacing, rigidbody2D.transform.position.y - yAxisExtendFromCollider), Vector2.down, color = Color.white, 0.1f);
+
+        return (rightEdgeCheck) ? true : false;
+    }
+    bool CheckEdgeLeft()
+    {
+        Color color;
+        bool leftEdgeCheck = Physics2D.Raycast(new Vector2(rigidbody2D.transform.position.x - edgeCheckSpacing, rigidbody2D.transform.position.y - yAxisExtendFromCollider), Vector2.down, groundDistanceCheck, groundLayer);
+        Debug.DrawRay(new Vector2(rigidbody2D.transform.position.x - edgeCheckSpacing, rigidbody2D.transform.position.y - yAxisExtendFromCollider), Vector2.down, color = Color.white, 0.1f);
+
+        return (leftEdgeCheck) ? true : false;
     }
 }

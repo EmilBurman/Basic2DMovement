@@ -55,7 +55,7 @@ public class PatrolController2D : MonoBehaviour, IController2D
         switch (patrolState)
         {
             case PatrolState.PatrolRight:
-                if (!stateMachine.WallRight() && stateMachine.Grounded())
+                if (!stateMachine.WallRight() && stateMachine.Grounded() && stateMachine.EdgeRight())
                 {
                     direction = 1;
                 }
@@ -63,7 +63,7 @@ public class PatrolController2D : MonoBehaviour, IController2D
                     patrolState = PatrolState.PatrolLeft;
                 break;
             case PatrolState.PatrolLeft:
-                if (!stateMachine.WallLeft() && stateMachine.Grounded())
+                if (!stateMachine.WallLeft() && stateMachine.Grounded() && stateMachine.EdgeLeft())
                 {
                     direction = -1;
                 }

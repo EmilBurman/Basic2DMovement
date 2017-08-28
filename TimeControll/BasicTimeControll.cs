@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroicTimeControll : MonoBehaviour, ITimeControll
+public class BasicTimeControll : MonoBehaviour, ITimeControll
 {
     // Interface--------------------
     public void FlashReverse(bool flashReverse)
@@ -35,6 +35,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
 
     // Set which entity to track
     public GameObject entity;
+    Rigidbody2D rigidbody2D;                        // Reference to the entity's rigidbody.
     private ArrayList positionArray;
     float interpolation;
 
@@ -69,6 +70,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
         returnPoint = GetComponent<SpawnBehavior>();
         timeState = TimeState.Ready;
         returnPoint.SpawnObject(true);
+        rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
@@ -156,6 +158,7 @@ public class HeroicTimeControll : MonoBehaviour, ITimeControll
             entity.transform.position = Vector2.Lerp(previousPosition, currentPosition, interpolation);
             yield return 0; //go to next frame
         }
+        rigidbody2D.velocity = new Vector2(0, 0.5f);
     }
 }
 

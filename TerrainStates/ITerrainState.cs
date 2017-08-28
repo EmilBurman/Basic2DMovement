@@ -8,4 +8,6 @@ public interface ITerrainState
     bool Airborne();
     bool WallLeft();
     bool WallRight();
+    bool EdgeRight();
+    bool EdgeLeft();
 }
