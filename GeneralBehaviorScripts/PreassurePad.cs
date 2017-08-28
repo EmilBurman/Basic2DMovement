@@ -11,29 +11,28 @@ public class PreassurePad : MonoBehaviour
     //Public variables
     public float massTriggerAmount = 500f;
 
-    private Rigidbody2D rigidbody2D;                         // Reference to the entity's rigidbody.
-
     void Start()
     {
         doorControllScript = door.GetComponent<IDoor>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
-
-    void OnTriggerEnter2D(Collider col)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (doorControllScript.isClosed() && rigidbody2D.mass > massTriggerAmount)
+        if (doorControllScript.isClosed() && collision.GetComponent<Rigidbody2D>().mass > massTriggerAmount)
         {
+            Debug.Log("Opening door");
             doorControllScript.Open();
         }
-    }
 
-
-    void OnTriggerExit2D(Collider col)
-    {
-        if (doorControllScript.isOpen() && rigidbody2D.mass > massTriggerAmount)
+        if (doorControllScript.isOpen() && collision.GetComponent<Rigidbody2D>().mass > massTriggerAmount)
         {
+            Debug.Log("Closing door");
             doorControllScript.Close();
         }
+    }
+
+    void Update()
+    {
+        Debug.DrawLine(transform.position, door.transform.position, Color.green);
     }
 }

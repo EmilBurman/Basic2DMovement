@@ -17,56 +17,53 @@ public class VerticalDoor : MonoBehaviour, IDoor {
 
     public bool isOpen()
     {
-        if (rigidbody2D.position == endPosition)
+        if (transform.position == endPosition)
             return true;
         else
             return false;
     }
     public bool isClosed()
     {
-        if (rigidbody2D.position == startPosition)
+        if (transform.position == startPosition)
             return true;
         else
             return false;
     }
-    void Open()
+    public void Open()
     {
-        if (toSetPoint && isClosed())
-            transform.position = Vector2.Lerp(startPosition, endPosition, 1f);
+        if (toSetPoint)
+            MoveDoor(endPosition);
     }
-    void Close()
+    public void Close()
     {
-        if (toSetPoint && isOpen())
-            transform.position = Vector2.Lerp(endPosition, startPosition, 1f);
+        if (toSetPoint)
+            MoveDoor(startPosition);
 
     }
     //End interface-------------------------
 
     //Move between two points
     public bool toSetPoint;
-    public Vector2 startPosition;
-    public Vector2 endPosition;
-
-    //Internal variable
-    Rigidbody2D rigidbody2D;                                        // Reference to the entity's rigidbody.
+    public float doorSpeed;
+    public Vector3 startPosition;
+    public Vector3 endPosition;
 
     void Awake()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        startPosition = rigidbody2D.position;
+        startPosition = transform.position;
     }
     void Update()
     {
         Debug.DrawLine(startPosition, endPosition, Color.red);
     }
 
-    void IDoor.Open()
+    IEnumerator MoveDoor(Vector3 toPosition)
     {
-        throw new NotImplementedException();
-    }
-
-    void IDoor.Close()
-    {
-        throw new NotImplementedException();
+        Vector3 currentPosition = transform.position;
+        while (!(transform.position == toPosition))
+        {
+            transform.position = Vector3.Lerp(currentPosition, toPosition, doorSpeed);
+            yield return 0; //go to next frame
+        }
     }
 }
