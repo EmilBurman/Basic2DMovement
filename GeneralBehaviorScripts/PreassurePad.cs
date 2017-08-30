@@ -9,7 +9,7 @@ public class PreassurePad : MonoBehaviour
     IDoor doorControllScript;
 
     //Public variables
-    public float massTriggerAmount = 500f;
+    public float massTriggerAmount;
 
     void Start()
     {

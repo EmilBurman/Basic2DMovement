@@ -54,13 +54,13 @@ public class VerticalDoor : MonoBehaviour, IDoor {
     }
     void Update()
     {
-        Debug.DrawLine(startPosition, endPosition, Color.red);
+        Debug.DrawLine(startPosition, endPosition, Color.blue);
     }
 
     IEnumerator MoveDoor(Vector3 toPosition)
     {
         Vector3 currentPosition = transform.position;
-        while (!(transform.position == toPosition))
+        if (!(transform.position == toPosition))
         {
             transform.position = Vector3.Lerp(currentPosition, toPosition, doorSpeed);
             yield return 0; //go to next frame
