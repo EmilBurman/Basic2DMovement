@@ -6,46 +6,63 @@ public class PortalToPortal : MonoBehaviour
 {
     //Public variables
     public GameObject portal;
-    public float offsetDistance;
-    public bool up;
-    public bool down;
-    public bool left;
-    public bool right;
+	public bool portalToPortal;
+	public Vector3 offSetDistance; 
+    public Vector3 exitPoint;  	
 
-    //Interal variables
-    Vector3 location;
-    Vector3 teleportOffset;
+	//Internal variables
+	Vector3 portalOffset;
 
-    public Vector3 exitPoint()
-    {
-        return transform.position + teleportOffset;
-    }
+	void Start()
+    	{
+		if (transform.rotation.eulerAngles.z >= 0 && transform.rotation.eulerAngles.z < 90)
+			angle = angle.up
+		if (transform.rotation.eulerAngles.z >= 90 && transform.rotation.eulerAngles.z < 180)
+			angle = angle.right
+		if (transform.rotation.eulerAngles.z >= 180 && transform.rotation.eulerAngles.z < 270)
+			angle = angle.down
+		if (transform.rotation.eulerAngles.z >= 270 && transform.rotation.eulerAngles.z < 360)
+			angle = angle.left
+    	}
 
+    	// Update is called once per frame
+    	void Update()
+    	{
+		if(portalToPortal)
+        		Debug.DrawLine(transform.position, portal.transform.position, Color.green);
+		else
+			Debug.DrawLine(transform.position, exitPoint, Color.green);
+    	}
 
-    // Use this for initialization
-    void Start()
-    {
-        location = portal.GetComponent<PortalToPortal>().exitPoint();
-        if (up)
-            teleportOffset = new Vector3(0, offsetDistance, 0);
-        if (down)
-            teleportOffset = new Vector3(0, -offsetDistance, 0);
-        if (left)
-            teleportOffset = new Vector3(-offsetDistance, 0, 0);
-        if (right)
-            teleportOffset = new Vector3(offsetDistance, 0, 0);
-    }
+	private enum angle{up,down,right,left}
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.DrawLine(transform.position, portal.transform.position, Color.green);
-        Debug.DrawLine(transform.position, transform.position + teleportOffset, Color.blue);
-    }
+    	public Vector3 portalExitPoint(Vector3 entitySize)
+    	{
+		switch (angle)
+		case angle.up:
+			entityOffset = new Vector3(0,entitySize.y,0);
+			offSetDistanceFixed = new Vector3(0,portalOffset,0);
+			break;
+		case angle.right:
+			entityOffset = new Vector3(entitySize.x,0,0);
+			offSetDistanceFixed = new Vector3(portalOffset,0,0);
+			break;
+		case angle.down:
+			entityOffset = new Vector3(0,-entitySize.y,0);
+			offSetDistanceFixed = new Vector3(0,-portalOffset,0);
+			break;
+		case angle.left:
+			entityOffset = new Vector3(-entitySize.x,0,0);
+			offSetDistanceFixed = new Vector3(-portalOffset,0,0);
+			break;
+        	return transform.position + entityOffset + offSetDistanceFixed;
+    	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("Porting collided entity.");
-        collision.transform.position = location;
-    }
+	private void OnTriggerEnter2D(Collider2D collision)
+    	{
+		if (portalToPortal)
+			collision.transform.position = portal.GetComponent<PortalToPortal>().portalExitPoint(collision.bounds);
+		else
+			collision.transform.position = new Vector3(exitPoint);
+	}
 }
