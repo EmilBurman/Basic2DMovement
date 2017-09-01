@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +9,7 @@ public class PortalBehavior : MonoBehaviour
     public bool portalToPortal;
     public float  offSetDistance;
     public Vector3 exitPoint;
+    oublic bool isActive;
 
     //Internal variables
     Angle angleDirection;
@@ -28,7 +29,7 @@ public class PortalBehavior : MonoBehaviour
 
         if (transform.rotation.eulerAngles.z >= 270 && transform.rotation.eulerAngles.z < 360)
             angleDirection = Angle.right;
-
+        isActive = false;
     }
 
     // Update is called once per frame
@@ -63,13 +64,29 @@ public class PortalBehavior : MonoBehaviour
         }
         return transform.position + entityOffset + offSetDistanceFixed;
     }
+    
+    public void setActive (bool state)
+    {
+        isActive = state;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (portalToPortal)
-            collision.transform.position = portal.GetComponent<PortalBehavior>().portalExitPoint(collision.bounds);
-        else
-            collision.transform.position = exitPoint;
+        if(!isActive)
+        {
+            if (portalToPortal)
+            {
+                portal.GetComponent<PortalBehavior>().setActive(true);
+                collision.transform.position = portal.GetComponent<PortalBehavior>().portalExitPoint(collision.bounds);
+            }
+            else
+                collision.transform.position = exitPoint;
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        isActive = false;
     }
 }
 public enum Angle { up, down, right, left }
