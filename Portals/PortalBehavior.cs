@@ -9,7 +9,7 @@ public class PortalBehavior : MonoBehaviour
     public bool portalToPortal;
     public float  offSetDistance;
     public Vector3 exitPoint;
-    oublic bool isActive;
+    public bool isActive;
 
     //Internal variables
     Angle angleDirection;
