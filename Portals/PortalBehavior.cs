@@ -7,7 +7,7 @@ public class PortalBehavior : MonoBehaviour
     //Public variables
     public GameObject portal;
     public bool portalToPortal;
-    public float  offSetDistance;
+    public float offSetDistance;
     public Vector3 exitPoint;
     public bool isActive;
 
@@ -15,6 +15,8 @@ public class PortalBehavior : MonoBehaviour
     Angle angleDirection;
     Vector3 entityOffset;
     Vector3 offSetDistanceFixed;
+    Vector2 exitDirection;
+    float speed;
 
     void Start()
     {
@@ -48,42 +50,57 @@ public class PortalBehavior : MonoBehaviour
             case Angle.up:
                 entityOffset = new Vector3(0, entitySize.extents.y, 0);
                 offSetDistanceFixed = new Vector3(0, offSetDistance, 0);
+                exitDirection = new Vector2(0, 1);
                 break;
             case Angle.right:
                 entityOffset = new Vector3(entitySize.extents.x, 0, 0);
                 offSetDistanceFixed = new Vector3(offSetDistance, 0, 0);
+                exitDirection = new Vector2(1, 0);
                 break;
             case Angle.down:
                 entityOffset = new Vector3(0, -entitySize.extents.y, 0);
                 offSetDistanceFixed = new Vector3(0, -offSetDistance, 0);
+                exitDirection = new Vector2(0, -1);
                 break;
             case Angle.left:
                 entityOffset = new Vector3(-entitySize.extents.x, 0, 0);
                 offSetDistanceFixed = new Vector3(-offSetDistance, 0, 0);
+                exitDirection = new Vector2(-1, 0);
                 break;
         }
         return transform.position + entityOffset + offSetDistanceFixed;
     }
-    
-    public void setActive (bool state)
+
+    public void setActive(bool state)
     {
         isActive = state;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!isActive)
+        if (!isActive)
         {
+            float velocityX = collision.GetComponent<Rigidbody2D>().velocity.x;
+            float velocityY = collision.GetComponent<Rigidbody2D>().velocity.y;
+            if (velocityX > velocityY)
+                speed = Mathf.Abs(velocityX);
+            if (velocityX < velocityY)
+                speed = Mathf.Abs(velocityY);
+
             if (portalToPortal)
             {
                 portal.GetComponent<PortalBehavior>().setActive(true);
                 collision.transform.position = portal.GetComponent<PortalBehavior>().portalExitPoint(collision.bounds);
+                Debug.Log(exitDirection);
+                Debug.Log(speed);
+                collision.GetComponent<Rigidbody2D>().AddForce(exitDirection * speed, ForceMode2D.Force);
+                portal.GetComponent<PortalBehavior>().setActive(false);
             }
             else
                 collision.transform.position = exitPoint;
         }
     }
-    
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         isActive = false;
