@@ -64,19 +64,19 @@ public class HeroicJump : MonoBehaviour, IJump
     private bool canDoubleJump;                     // Checks if the player can double jump.
     private Vector2 sideJump;                       // The angle when jumping from a wall.
 
-    private void Awake()
+    void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         sideJumpForce = jumpForce * 1.2f;
     }
 
-    private void SetCanDoubleJump(bool setDoubleJump)
+    void SetCanDoubleJump(bool setDoubleJump)
     {
         canDoubleJump = setDoubleJump;
     }
 
-    private void WallJump()
+    void WallJump()
     {
         rigidbody2D.velocity = new Vector2(0, 0);
         rigidbody2D.AddForce(sideJump * sideJumpForce, ForceMode2D.Impulse);

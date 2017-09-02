@@ -28,7 +28,7 @@ public class AirDash : MonoBehaviour, IDash
     private float hAxis;
 
 
-    void Awake()
+        void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         boostSpeedRight = new Vector2(boostSpeed, 0);

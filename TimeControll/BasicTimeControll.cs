@@ -104,7 +104,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
         }
     }
 
-    private void ReverseAbility()
+    void ReverseAbility()
     {
         switch (timeState)
         {

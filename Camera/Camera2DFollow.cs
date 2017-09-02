@@ -17,7 +17,7 @@ namespace UnityStandardAssets._2D
         private Vector3 m_LookAheadPos;
 
         // Use this for initialization.
-        private void Start()
+        void Start()
         {
             m_LastTargetPosition = target.position;
             m_OffsetZ = (transform.position - target.position).z;
@@ -25,7 +25,7 @@ namespace UnityStandardAssets._2D
         }
 
         // Update is called on a fixed schedule.
-        private void FixedUpdate()
+        void FixedUpdate()
         {
             // only update lookahead pos if accelerating or changed direction
             float xMoveDelta = (target.position - m_LastTargetPosition).x;
