@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VerticalDoor : MonoBehaviour, IDoor {
+public class MovingDoor : MonoBehaviour, IDoor {
     //Interface------------------------------
     public bool canBeOpened()
     {
@@ -17,14 +17,14 @@ public class VerticalDoor : MonoBehaviour, IDoor {
 
     public bool isOpen()
     {
-        if (transform.position == endPosition)
+        if (Vector3.Distance(transform.position, endPosition) < 0.06f)
             return true;
         else
             return false;
     }
     public bool isClosed()
     {
-        if (transform.position == startPosition)
+        if (Vector3.Distance(transform.position, startPosition) < 0.06f)
             return true;
         else
             return false;
@@ -32,21 +32,22 @@ public class VerticalDoor : MonoBehaviour, IDoor {
     public void Open()
     {
         if (toSetPoint)
-            MoveDoor(endPosition);
+            StartCoroutine(MoveDoor(endPosition));
     }
     public void Close()
     {
         if (toSetPoint)
-            MoveDoor(startPosition);
-
+            StartCoroutine(MoveDoor(startPosition));
     }
     //End interface-------------------------
 
     //Move between two points
     public bool toSetPoint;
-    public float doorSpeed;
-    public Vector3 startPosition;
-    public Vector3 endPosition;
+    public Vector3 startPosition,
+                   currentPosition,
+                   endPosition;
+
+    public float smoothing = 1f;
 
     void Awake()
     {
@@ -55,12 +56,19 @@ public class VerticalDoor : MonoBehaviour, IDoor {
     void Update()
     {
         Debug.DrawLine(startPosition, endPosition, Color.blue);
+        currentPosition = transform.position;
     }
 
-    void MoveDoor(Vector3 toPosition)
+    IEnumerator MoveDoor(Vector3 toPosition)
     {
-        Vector3 currentPosition = transform.position;
-        if (!(transform.position == toPosition))
-            transform.position = Vector3.Lerp(currentPosition, toPosition, doorSpeed);
+        while (Vector3.Distance(transform.position, toPosition) > 0.05f)
+        {
+            transform.position = Vector3.Lerp(transform.position, toPosition, smoothing * Time.deltaTime);
+            yield return null;
+        }
+        print("Reached the target.");
+        yield return new WaitForSeconds(3f);
+        print("MyCoroutine is now finished.");
     }
 }
+
