@@ -24,7 +24,7 @@ public class PreassurePad : MonoBehaviour
             doorControllScript.Open();
         }
 
-        if (doorControllScript.isOpen() && collision.GetComponent<Rigidbody2D>().mass > massTriggerAmount)
+        else if (doorControllScript.isOpen() && collision.GetComponent<Rigidbody2D>().mass > massTriggerAmount)
         {
             Debug.Log("Closing door");
             doorControllScript.Close();

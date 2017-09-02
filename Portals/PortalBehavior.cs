@@ -91,9 +91,7 @@ public class PortalBehavior : MonoBehaviour
             {
                 portal.GetComponent<PortalBehavior>().setActive(true);
                 collision.transform.position = portal.GetComponent<PortalBehavior>().portalExitPoint(collision.bounds);
-                Debug.Log(exitDirection);
-                Debug.Log(speed);
-                collision.GetComponent<Rigidbody2D>().AddForce(exitDirection * speed, ForceMode2D.Force);
+                collision.GetComponent<Rigidbody2D>().AddForce(exitDirection * (speed*1.2f), ForceMode2D.Impulse);
                 portal.GetComponent<PortalBehavior>().setActive(false);
             }
             else
