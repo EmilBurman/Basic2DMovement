@@ -16,7 +16,7 @@ public class PreassurePad : MonoBehaviour
         doorControllScript = door.GetComponent<IDoor>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (doorControllScript.isClosed() && collision.GetComponent<Rigidbody2D>().mass > massTriggerAmount)
         {

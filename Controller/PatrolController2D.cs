@@ -33,24 +33,28 @@ public class PatrolController2D : MonoBehaviour, IController2D
 
     public bool Sprint()
     {
-        return false;
+        return sprint;
     }
     //End interface-------------------------
 
     private ITerrainState stateMachine;
     public PatrolState patrolState;                     // Shows the current state of dashing.
     float direction;
+    bool sprint;
+    LineOfSight LoS;
     // Use this for initialization
     void Start()
     {
         stateMachine = GetComponent<ITerrainState>();
+        LoS = GetComponent<LineOfSight>();
     }
-    private void Update()
+    void Update()
     {
         PatrolStateCheck();
+        LoSCheck();
     }
 
-    private void PatrolStateCheck()
+    void PatrolStateCheck()
     {
         switch (patrolState)
         {
@@ -71,6 +75,9 @@ public class PatrolController2D : MonoBehaviour, IController2D
                     patrolState = PatrolState.PatrolRight;
                 break;
         }
+    }
+    void LoSCheck()
+    {
     }
 }
 

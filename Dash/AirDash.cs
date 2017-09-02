@@ -28,14 +28,14 @@ public class AirDash : MonoBehaviour, IDash
     private float hAxis;
 
 
-    private void Awake()
+    void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         boostSpeedRight = new Vector2(boostSpeed, 0);
         boostSpeedLeft = new Vector2(-boostSpeed, 0);
     }
 
-    private void DashAbility(float horizontalAxis, bool dash)
+    void DashAbility(float horizontalAxis, bool dash)
     {
         switch (dashState)
         {

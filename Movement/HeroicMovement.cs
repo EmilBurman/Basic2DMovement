@@ -78,12 +78,12 @@ public class HeroicMovement : MonoBehaviour, IMovement
         vector2Right = new Vector2(1f, rigidbody2D.velocity.y);
         vector2Left = new Vector2(-1f, rigidbody2D.velocity.y);
     }
-    private void SetCanWallRide(bool setWallRide)
+    void SetCanWallRide(bool setWallRide)
     {
         canWallRide = setWallRide;
     }
 
-    private void MovementSpeedClamp()
+    void MovementSpeedClamp()
     {
         if (rigidbody2D.velocity.sqrMagnitude > moveSpeed * 1.3f)
             rigidbody2D.velocity *= 0.97f;

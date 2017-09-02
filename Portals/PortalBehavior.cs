@@ -76,7 +76,7 @@ public class PortalBehavior : MonoBehaviour
         isActive = state;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (!isActive)
         {
@@ -99,7 +99,7 @@ public class PortalBehavior : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collision)
     {
         isActive = false;
     }
