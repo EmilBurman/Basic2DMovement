@@ -155,7 +155,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
                 RestorePositions();
             }
             interpolation = reverseCounter / keyframe;
-            entity.transform.position = Vector2.Lerp(previousPosition, currentPosition, interpolation);
+            entity.transform.position = Vector2.Lerp(previousPosition, currentPosition, 1.2f * interpolation);
             yield return 0; //go to next frame
         }
         rigidbody2D.velocity = new Vector2(0, 0.5f);
