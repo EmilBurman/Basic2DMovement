@@ -68,7 +68,7 @@ public class MovingDoor : MonoBehaviour, IDoor {
         }
         print("Reached the target.");
         yield return new WaitForSeconds(3f);
-        print("MyCoroutine is now finished.");
+        print("Door is now moved.");
     }
 }
 
