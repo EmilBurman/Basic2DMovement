@@ -80,15 +80,14 @@ public class PortalBehavior : MonoBehaviour
     {
         if (!isActive)
         {
-            float velocityX = collision.GetComponent<Rigidbody2D>().velocity.x;
-            float velocityY = collision.GetComponent<Rigidbody2D>().velocity.y;
-            if (velocityX > velocityY)
-                speed = Mathf.Abs(velocityX);
-            if (velocityX < velocityY)
-                speed = Mathf.Abs(velocityY);
-
             if (portalToPortal)
             {
+                float velocityX = collision.GetComponent<Rigidbody2D>().velocity.x;
+                float velocityY = collision.GetComponent<Rigidbody2D>().velocity.y;
+                if (velocityX > velocityY)
+                    speed = Mathf.Abs(velocityX);
+                if (velocityX < velocityY)
+                    speed = Mathf.Abs(velocityY);
                 portal.GetComponent<PortalBehavior>().setActive(true);
                 collision.transform.position = portal.GetComponent<PortalBehavior>().portalExitPoint(collision.bounds);
                 collision.GetComponent<Rigidbody2D>().AddForce(exitDirection * (speed*1.2f), ForceMode2D.Impulse);
