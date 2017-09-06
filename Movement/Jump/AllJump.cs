@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroicJump : MonoBehaviour, IJump
+public class AllJump : MonoBehaviour, IJump
 {
     //Interface----------------------------
     public void Grounded(bool jump, bool sprint)
@@ -21,7 +21,7 @@ public class HeroicJump : MonoBehaviour, IJump
 
     public void Airborne(bool jump)
     {
-        if (jump && canDoubleJump)
+        if (jump && canJump)
         {
             // If player wants to change direction, help them change.
             if (rigidbody2D.velocity.x > 0 && mySpriteRenderer.flipX)
@@ -32,7 +32,10 @@ public class HeroicJump : MonoBehaviour, IJump
 
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 1f);
             rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            canDoubleJump = false;
+            timesJumped++;
+
+            if (timesJumped >= numberOfAirJumps)
+                canJump = false;
         }
     }
 
@@ -57,12 +60,16 @@ public class HeroicJump : MonoBehaviour, IJump
     }
     // End interface-----------------------
 
-    Rigidbody2D rigidbody2D;                         // Reference to the player's rigidbody.
+    public float numberOfAirJumps;
     public float jumpForce = 22f;                   // The height the player can jump
-    private SpriteRenderer mySpriteRenderer;        // To get the current sprite.
-    private float sideJumpForce;                    // Force when jumping from a wall.
-    private bool canDoubleJump;                     // Checks if the player can double jump.
-    private Vector2 sideJump;                       // The angle when jumping from a wall.
+
+    //Internal
+    Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
+    SpriteRenderer mySpriteRenderer;                // To get the current sprite.
+    float sideJumpForce;                            // Force when jumping from a wall.
+    float timesJumped;                              // Number of jumps performed.
+    bool canJump;                                   // Checks if the player can double jump.
+    Vector2 sideJump;                               // The angle when jumping from a wall.
 
     void Awake()
     {
@@ -73,7 +80,9 @@ public class HeroicJump : MonoBehaviour, IJump
 
     void SetCanDoubleJump(bool setDoubleJump)
     {
-        canDoubleJump = setDoubleJump;
+        canJump = setDoubleJump;
+        if (canJump)
+            timesJumped = 0;
     }
 
     void WallJump()

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirDash : MonoBehaviour, IDash
+public class HorizontalDash : MonoBehaviour, IDash
 {
     // Interface----------------------------
     public void Dash(float horizontalAxis, bool dash)
