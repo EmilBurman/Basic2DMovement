@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer))]
-public class FlipSpriteBehavior : MonoBehaviour
+public class FlipSprite : MonoBehaviour
 {
 
     Rigidbody2D playerRb2D;                                 // Reference to the entity's rigidbody.
@@ -21,10 +21,10 @@ public class FlipSpriteBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FlipSprite();
+        FlipTheSprite();
     }
 
-    protected void FlipSprite()
+    protected void FlipTheSprite()
     {
         if (playerRb2D.velocity.x < -0.001 || (stateMachine.Airborne() && stateMachine.WallRight()))
             mySpriteRenderer.flipX = true;

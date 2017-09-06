@@ -62,12 +62,12 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
     private Vector2 previousPosition;
 
     // Spawn/destory for the point of max return.
-    SpawnBehavior returnPoint;
+    SpawnEntity returnPoint;
 
     void Start()
     {
         positionArray = new ArrayList();
-        returnPoint = GetComponent<SpawnBehavior>();
+        returnPoint = GetComponent<SpawnEntity>();
         timeState = TimeState.Ready;
         returnPoint.SpawnObject(true);
         rigidbody2D = GetComponent<Rigidbody2D>();

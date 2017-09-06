@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnBehavior : MonoBehaviour
+public class SpawnEntity : MonoBehaviour
 {
 
     public GameObject prefab;
