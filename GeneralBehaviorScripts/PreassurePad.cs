@@ -22,16 +22,16 @@ public class PreassurePad : MonoBehaviour
             else if (door[i].GetComponent<IDoor>().isOpen() && collision.GetComponent<Rigidbody2D>().mass > massTriggerAmount)
             {
             Debug.Log("Closing door");
-       	    door[i].GetComponent<IDoor>().Close();
-   	        }
+       	  door[i].GetComponent<IDoor>().Close();
+   	       }
         }
     }
 
     void Update()
     {
         for(int i:int=0; i<door.Length; i++)
-   	    {
+   	   {
         Debug.DrawLine(transform.position, door[i].transform.position, Color.green);
-    	}
+    	   }
    }
 }
