@@ -55,7 +55,7 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
 
     // Internal system variables.
     Rigidbody2D rigidbody2D;                                        // Reference to the player's rigidbody.
-    SpriteRenderer mySpriteRenderer;                                // Entity sprite sprite
+
 
     // Distance to check
     public float groundDistanceCheck;                               // Defines the distance to check for terrain.
@@ -67,7 +67,6 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
         rigidbody2D = GetComponent<Rigidbody2D>();
         yAxisExtendFromCollider = (GetComponent<Collider2D>().bounds.extents.y + yAxisRayCastStartPoint);
         xAxisExtendFromCollider = (GetComponent<Collider2D>().bounds.extents.x + xAxisRayCastStartPoint);
-        mySpriteRenderer = GetComponent<SpriteRenderer>();
         groundDistanceCheck = 0.03f;
         wallDistanceCheck = 0.03f;
     }

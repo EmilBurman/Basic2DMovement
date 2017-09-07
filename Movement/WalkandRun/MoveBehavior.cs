@@ -17,7 +17,7 @@ public class MoveBehavior : MonoBehaviour
 
     void Update()
     {
-        controller.Move();
+        controller.MoveHorizontal();
         controller.Sprint();
     }
 
@@ -25,14 +25,14 @@ public class MoveBehavior : MonoBehaviour
     void FixedUpdate()
     {
         if (stateMachine.Grounded())
-            move.Grounded(controller.Move(), controller.Sprint());
+            move.Grounded(controller.MoveHorizontal(), controller.Sprint());
         else if (stateMachine.Airborne())
         {
-            move.Airborne(controller.Move(), controller.Sprint());
+            move.Airborne(controller.MoveHorizontal(), controller.Sprint());
             if (stateMachine.WallLeft())
-                move.Wallride(controller.Move(), controller.Sprint());
+                move.Wallride(controller.MoveHorizontal(), controller.Sprint());
             if (stateMachine.WallRight())
-                move.Wallride(controller.Move(), controller.Sprint());
+                move.Wallride(controller.MoveHorizontal(), controller.Sprint());
         }
     }
 }

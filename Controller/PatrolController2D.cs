@@ -21,9 +21,13 @@ public class PatrolController2D : MonoBehaviour, IController2D
         return false;
     }
 
-    public float Move()
+    public float MoveHorizontal()
     {
-        return direction;
+        return horizontalDirection;
+    }
+    public float MoveVertical()
+    {
+        return 0;
     }
 
     public bool SlowReverse()
@@ -39,7 +43,7 @@ public class PatrolController2D : MonoBehaviour, IController2D
 
     private ITerrainState stateMachine;
     public PatrolState patrolState;                     // Shows the current state of dashing.
-    float direction;
+    float horizontalDirection;
     bool sprint;
     LineOfSight LoS;
     // Use this for initialization
@@ -61,7 +65,7 @@ public class PatrolController2D : MonoBehaviour, IController2D
             case PatrolState.PatrolRight:
                 if (!stateMachine.WallRight() && stateMachine.EdgeRight())
                 {
-                    direction = 1;
+                    horizontalDirection = 1;
                 }
                 else
                     patrolState = PatrolState.PatrolLeft;
@@ -69,7 +73,7 @@ public class PatrolController2D : MonoBehaviour, IController2D
             case PatrolState.PatrolLeft:
                 if (!stateMachine.WallLeft() && stateMachine.EdgeLeft())
                 {
-                    direction = -1;
+                    horizontalDirection = -1;
                 }
                 else
                     patrolState = PatrolState.PatrolRight;

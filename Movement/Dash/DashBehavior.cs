@@ -18,7 +18,8 @@ public class DashBehavior : MonoBehaviour
     void Update()
     {
         controller.Dash();
-        controller.Move();
+        controller.MoveHorizontal();
+        controller.MoveVertical();
     }
 
     void FixedUpdate()
@@ -27,7 +28,7 @@ public class DashBehavior : MonoBehaviour
             dash.ResetDash();
         else if (stateMachine.Airborne())
         {
-            dash.Dash(controller.Move(), controller.Dash());
+            dash.Dash(controller.MoveHorizontal(), controller.MoveVertical(), controller.Dash());
             if (stateMachine.WallLeft())
                 dash.ResetDash();
             if (stateMachine.WallRight())

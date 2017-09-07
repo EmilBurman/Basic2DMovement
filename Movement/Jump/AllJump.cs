@@ -8,7 +8,7 @@ public class AllJump : MonoBehaviour, IJump
     //Interface----------------------------
     public void Grounded(bool jump, bool sprint)
     {
-        SetCanDoubleJump(true);
+        SetCanAirJump(true);
         if (jump)
         {
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
@@ -41,7 +41,7 @@ public class AllJump : MonoBehaviour, IJump
 
     public void RightWall(bool jump)
     {
-        SetCanDoubleJump(true);
+        SetCanAirJump(true);
         if (jump)
         {
             sideJump = new Vector2(-0.7f, 0.9f);
@@ -51,7 +51,7 @@ public class AllJump : MonoBehaviour, IJump
 
     public void LeftWall(bool jump)
     {
-        SetCanDoubleJump(true);
+        SetCanAirJump(true);
         if (jump)
         {
             sideJump = new Vector2(0.7f, 0.9f);
@@ -78,7 +78,7 @@ public class AllJump : MonoBehaviour, IJump
         sideJumpForce = jumpForce * 1.2f;
     }
 
-    void SetCanDoubleJump(bool setDoubleJump)
+    void SetCanAirJump(bool setDoubleJump)
     {
         canJump = setDoubleJump;
         if (canJump)

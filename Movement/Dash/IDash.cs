@@ -4,6 +4,12 @@ using UnityEngine;
 
 public interface IDash
 {
-    void Dash(float horizontalAxis, bool dash);
+    void Dash(float hAxis, float yAxis, bool dash);
     void ResetDash();
+}
+public enum DashState
+{
+    Ready,
+    Dashing,
+    Cooldown
 }

@@ -6,12 +6,19 @@ using UnityEngine;
 public class PlayerController2D : MonoBehaviour, IController2D
 {
     //Interface-----------------------------
-    public float Move()
+    public float MoveHorizontal()
     {
         if (freezeInput)
             return 0f;
         else
             return Input.GetAxisRaw("Horizontal");
+    }
+    public float MoveVertical()
+    {
+        if (freezeInput)
+            return 0f;
+        else
+            return Input.GetAxisRaw("Vertical");
     }
 
     public bool Jump()

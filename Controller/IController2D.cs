@@ -4,7 +4,8 @@ using UnityEngine;
 
 public interface IController2D
 {
-    float Move();
+    float MoveHorizontal();
+    float MoveVertical();
     bool Jump();
     bool Dash();
     bool Sprint();

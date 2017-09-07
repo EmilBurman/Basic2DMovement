@@ -17,7 +17,7 @@ public class JumpBehavior : MonoBehaviour
 
     void Update()
     {
-        controller.Move();
+        controller.MoveHorizontal();
         controller.Sprint();
         controller.Jump();
     }
