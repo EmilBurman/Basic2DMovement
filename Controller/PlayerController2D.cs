@@ -8,7 +8,7 @@ public class PlayerController2D : MonoBehaviour, IController2D
     //Interface-----------------------------
     public float Move()
     {
-        if (slowReverseCheck)
+        if (freezeInput)
             return 0f;
         else
             return Input.GetAxisRaw("Horizontal");
@@ -16,7 +16,7 @@ public class PlayerController2D : MonoBehaviour, IController2D
 
     public bool Jump()
     {
-        if (slowReverseCheck)
+        if (freezeInput)
             return false;
         else
             return Input.GetButtonDown("Jump");
@@ -24,7 +24,7 @@ public class PlayerController2D : MonoBehaviour, IController2D
 
     public bool Dash()
     {
-        if (slowReverseCheck)
+        if (freezeInput)
             return false;
         else
             return Input.GetButtonDown("Dash");
@@ -32,7 +32,7 @@ public class PlayerController2D : MonoBehaviour, IController2D
 
     public bool Sprint()
     {
-        if (slowReverseCheck)
+        if (freezeInput)
             return false;
         else
             return Input.GetButton("Sprint");
@@ -40,7 +40,7 @@ public class PlayerController2D : MonoBehaviour, IController2D
 
     public bool FlashReverse()
     {
-        if (slowReverseCheck)
+        if (freezeInput)
             return false;
         else
             return Input.GetButtonDown("Flash");
@@ -48,9 +48,9 @@ public class PlayerController2D : MonoBehaviour, IController2D
     
     public bool SlowReverse()
     {
-        slowReverseCheck = Input.GetButton("Reverse");
+        freezeInput = Input.GetButton("Reverse");
         return Input.GetButton("Reverse");
     }
     //End interface-------------------------
-    bool slowReverseCheck;
+    bool freezeInput;
 }
