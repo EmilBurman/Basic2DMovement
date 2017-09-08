@@ -36,21 +36,24 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
     }
     //End interface---------------
 
-    // Layermasks
+    [Header("Terrain layers.")]
     public LayerMask groundLayer;                                   // Layermask variable to check for ground layer.
     public LayerMask wallLayer;                                     // Layermask variable to check for wall layer.
 
     //Checks for ground.
+    [Header("Ground variables.")]
     public float groundCheckSpacing = 0.94f;                        // Determines how to space out the left and right ground checks.
     public float yAxisRayCastStartPoint = 0.01f;                    // Defines how far out from the collider to check for the ground.
     float yAxisExtendFromCollider;                                  // Gets collider and sets raycast starting point for the ground.
 
     //Checks for walls.
+    [Header("Wall variables.")]
     public float wallCheckSpacing = 2f;                             // Determines how to space out the top and bottom wall checks.
     public float xAxisRayCastStartPoint = 0.01f;                    // Defines how far out from the collider to check for the walls.
     float xAxisExtendFromCollider;                                  // Gets collider and sets raycast starting point for the ground.
 
     //Checks for platform edges.
+    [Header("Platform variables.")]
     public float edgeCheckSpacing = 2f;                             // Determines how to space out the top and bottom wall checks.
 
     // Internal system variables.
@@ -58,6 +61,7 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
 
 
     // Distance to check
+    [Header("Displacement variables.")]
     public float groundDistanceCheck;                               // Defines the distance to check for terrain.
     public float wallDistanceCheck;                                 // Defines the distance to check for terrain.
 

@@ -60,6 +60,7 @@ public class AllJump : MonoBehaviour, IJump
     }
     // End interface-----------------------
 
+    [Header("Jump variables.")]
     public float numberOfAirJumps;
     public float jumpForce = 22f;                   // The height the player can jump
 

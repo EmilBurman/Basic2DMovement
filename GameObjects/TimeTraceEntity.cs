@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeTraceEntity : MonoBehaviour
+public class TimeTraceEntity : MonoBehaviour 
 {
     // Set the tracing GameObject, fetch its time controll script, fetch its position array and its interpolation value
     public GameObject traceEntity;
@@ -19,8 +19,8 @@ public class TimeTraceEntity : MonoBehaviour
     {
         traceEntity = transform.parent.gameObject;
         timeControllScript = traceEntity.GetComponent<ITimeControll>();
-        positionArray = timeControllScript.GetPositionFromArrayAt(0);
         entityTrail = GetComponent<LineRenderer>();
+        positionArray = timeControllScript.GetPositionFromArrayAt(0);
         transform.position = timeControllScript.GetPositionFromArrayAt(0);
     }
 
@@ -28,7 +28,9 @@ public class TimeTraceEntity : MonoBehaviour
     void LateUpdate()
     {
         transform.parent = null;
+
         transform.position = Vector2.Lerp(transform.position, timeControllScript.GetPositionFromArrayAt(1), 0.3f);
+
     }
 
 }

@@ -5,11 +5,15 @@ using UnityEngine;
 public class PortalBehavior : MonoBehaviour
 {
     //Public variables
+    [Header("Setup for portal")]
     public GameObject portal;
     public bool portalToPortal;
     public float offSetDistance;
+
+    [Header("Setup for exit point")]
     public Vector3 exitPoint;
-    public bool isActive;
+
+    bool isActive;
 
     //Internal variables
     Angle angleDirection;
