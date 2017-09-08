@@ -10,8 +10,6 @@ public class TimeTraceEntity : MonoBehaviour
     ITimeControll timeControllScript;
     float interpolation;
 
-    Vector2 positionArray;
-
     // Get the linerenderer on this object
     LineRenderer entityTrail;
 
@@ -20,17 +18,19 @@ public class TimeTraceEntity : MonoBehaviour
         traceEntity = transform.parent.gameObject;
         timeControllScript = traceEntity.GetComponent<ITimeControll>();
         entityTrail = GetComponent<LineRenderer>();
-        positionArray = timeControllScript.GetPositionFromArrayAt(0);
-        transform.position = timeControllScript.GetPositionFromArrayAt(0);
+        StartCoroutine(LateStart(2));
     }
 
 
     void LateUpdate()
     {
         transform.parent = null;
-
         transform.position = Vector2.Lerp(transform.position, timeControllScript.GetPositionFromArrayAt(1), 0.3f);
 
     }
-
+    IEnumerator LateStart(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        transform.position = timeControllScript.GetPositionFromArrayAt(0);
+    }
 }

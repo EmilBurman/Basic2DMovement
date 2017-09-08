@@ -64,7 +64,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
     // Spawn/destory for the point of max return.
     SpawnEntity returnPoint;
 
-    void Start()
+    void Awake()
     {
         positionArray = new ArrayList();
         returnPoint = GetComponent<SpawnEntity>();
