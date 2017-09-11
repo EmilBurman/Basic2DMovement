@@ -49,7 +49,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
     float reverseCooldownLimit = 5f;        	// Sets the cooldown of the dash in seconds.
 
     //Determine how much to save
-    private int keyframe = 5;
+    private int keyframe = 10;
 
     //Amount recorded.
     private int frameCounter = 0;
