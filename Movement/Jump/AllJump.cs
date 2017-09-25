@@ -25,12 +25,12 @@ public class AllJump : MonoBehaviour, IJump
         {
             // If player wants to change direction, help them change.
             if (rigidbody2D.velocity.x > 0 && mySpriteRenderer.flipX)
-                rigidbody2D.AddForce(Vector2.left * 4f, ForceMode2D.Impulse);
+                rigidbody2D.AddForce(Vector2.left * 4.5f, ForceMode2D.Impulse);
             // If player wants to change direction, help them change.
             else if (rigidbody2D.velocity.x < 0 && !mySpriteRenderer.flipX)
-                rigidbody2D.AddForce(Vector2.right * 4f, ForceMode2D.Impulse);
+                rigidbody2D.AddForce(Vector2.right * 4.5f, ForceMode2D.Impulse);
 
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 1f);
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 2f);
             rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             timesJumped++;
 
