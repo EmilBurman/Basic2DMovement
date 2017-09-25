@@ -10,14 +10,10 @@ public class TimeTraceEntity : MonoBehaviour
     ITimeControll timeControllScript;
     float interpolation;
 
-    // Get the linerenderer on this object
-    LineRenderer entityTrail;
-
     void Start()
     {
         traceEntity = transform.parent.gameObject;
         timeControllScript = traceEntity.GetComponent<ITimeControll>();
-        entityTrail = GetComponent<LineRenderer>();
         StartCoroutine(LateStart(2));
     }
 
