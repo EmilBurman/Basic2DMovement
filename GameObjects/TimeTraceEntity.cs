@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimeTraceEntity : MonoBehaviour 
+public class TimeTraceEntity : MonoBehaviour
 {
     // Set the tracing GameObject, fetch its time controll script, fetch its position array and its interpolation value
     public GameObject traceEntity;

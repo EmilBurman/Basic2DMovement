@@ -7,6 +7,9 @@ public class PreassurePad : MonoBehaviour
     // Which doors to interact with
     public GameObject[] doors;
 
+    // Only trigger once
+    public bool triggerOnceOnly;
+
     //Public variables
     public float massTriggerAmount;
 
@@ -25,6 +28,8 @@ public class PreassurePad : MonoBehaviour
                 doors[i].GetComponent<IDoor>().Close();
             }
         }
+        if (triggerOnceOnly)
+            Destroy(gameObject);
     }
 
     void Update()

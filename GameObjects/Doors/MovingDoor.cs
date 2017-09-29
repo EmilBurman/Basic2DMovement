@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingDoor : MonoBehaviour, IDoor {
+public class MovingDoor : MonoBehaviour, IDoor
+{
     //Interface------------------------------
     public bool canBeOpened()
     {
@@ -31,8 +32,28 @@ public class MovingDoor : MonoBehaviour, IDoor {
     }
     public void Open()
     {
-        if (toSetPoint)
-            StartCoroutine(MoveDoor(endPosition));
+        if (multipleTriggers)
+        {
+            if (CheckAllTriggers())
+            {
+                if (toSetPoint)
+                    StartCoroutine(MoveDoor(endPosition));
+            }
+            else
+            {
+                AddTriggerAsTrue();
+                if (CheckAllTriggers())
+                {
+                    if (toSetPoint)
+                        StartCoroutine(MoveDoor(endPosition));
+                }
+            }
+        }
+        else
+        {
+            if (toSetPoint)
+                StartCoroutine(MoveDoor(endPosition));
+        }
     }
     public void Close()
     {
@@ -41,10 +62,13 @@ public class MovingDoor : MonoBehaviour, IDoor {
     }
     //End interface-------------------------
 
+    //If multiple are needed to open
+    public bool multipleTriggers;
+    public bool[] triggers;
+
     //Move between two points
     public bool toSetPoint;
     public Vector3 startPosition,
-                   currentPosition,
                    endPosition;
 
     public float smoothing = 1f;
@@ -56,7 +80,34 @@ public class MovingDoor : MonoBehaviour, IDoor {
     void Update()
     {
         Debug.DrawLine(startPosition, endPosition, Color.blue);
-        currentPosition = transform.position;
+    }
+
+    bool CheckAllTriggers()
+    {
+        bool canOpen = true;
+        for (int i = 0; i < triggers.Length; i++)
+        {
+            if (triggers[i] == false)
+            {
+                canOpen = false;
+                break;
+            }
+        }
+        if (canOpen)
+            return true;
+        else
+            return false;
+    }
+    void AddTriggerAsTrue()
+    {
+        for (int i = 0; i < triggers.Length; i++)
+        {
+            if (triggers[i] == false)
+            {
+                triggers[i] = true;
+                break;
+            }
+        }
     }
 
     IEnumerator MoveDoor(Vector3 toPosition)
@@ -67,7 +118,7 @@ public class MovingDoor : MonoBehaviour, IDoor {
             yield return null;
         }
         print("Reached the target.");
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         print("Door is now moved.");
     }
 }

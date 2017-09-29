@@ -18,7 +18,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
 
     public void SlowReverse(bool reversing)
     {
-        if (reversing && positionArray.Count > 1)
+        if (reversing && positionArray.Count >= 1)
             isReversing = true;
         else
         {
@@ -45,7 +45,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
 
     // Cooldown and state variables
     private TimeState timeState;
-    public float reverseTimer; 			            // Shows the current cooldown.
+    public float reverseTimer; 			        // Shows the current cooldown.
     float reverseCooldownLimit = 5f;        	// Sets the cooldown of the dash in seconds.
 
     //Determine how much to save
@@ -96,7 +96,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
         int lastIndex = positionArray.Count - 1;
         int secondToLastIndex = positionArray.Count - 2;
 
-        if (secondToLastIndex >= 0)
+        if (secondToLastIndex > 0)
         {
             currentPosition = (positionArray[lastIndex] as PositionArray).position;
             previousPosition = (positionArray[secondToLastIndex] as PositionArray).position;
@@ -118,7 +118,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
             case TimeState.Reversing:
                 // Set the cooldown and initate cooldown state.
                 reverseTimer += Time.deltaTime * 3;
-                if (reverseTimer >= reverseCooldownLimit)
+                if (reverseTimer > reverseCooldownLimit)
                 {
                     reverseTimer = reverseCooldownLimit;
                     returnPoint.DestroyGameObject();

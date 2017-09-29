@@ -35,4 +35,21 @@ public class MoveBehavior : MonoBehaviour
                 move.Wallride(controller.MoveHorizontal(), controller.Sprint());
         }
     }
+    void OnTriggerEnter2D(Collider2D c)
+    {
+        Debug.Log("Platform found");
+        if (c.gameObject.tag == "Platform")
+        {
+            Debug.Log("Platform found");
+            transform.parent = c.gameObject.transform;
+        }
+    }
+    void OnTriggerExit2D(Collider2D c)
+    {
+        if (c.transform.tag == "Platform")
+        {
+            Debug.Log("Platform exit");
+            transform.parent = null;
+        }
+    }
 }
