@@ -13,9 +13,15 @@ public class AllJump : MonoBehaviour, IJump
         {
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
             if (sprint)
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce*0.8f);
+            {
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 2f);
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce * 0.8f);
+            }
             else
+            {
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 2f);
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce);
+            }
         }
     }
 

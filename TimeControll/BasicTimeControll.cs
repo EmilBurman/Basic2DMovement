@@ -18,7 +18,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
 
     public void SlowReverse(bool reversing)
     {
-        if (reversing && positionArray.Count >= 1)
+        if (reversing && positionArray.Count > 2)
             isReversing = true;
         else
         {

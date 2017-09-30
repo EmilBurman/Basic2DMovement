@@ -18,7 +18,7 @@ public class DashHorizontal : MonoBehaviour, IDash
     }
     // End interface------------------------
 
-    Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
+    new Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
     public DashState dashState;                     // Shows the current state of dashing.
     float dashTimer;                                // Shows the current cooldown.
     float dashCooldownLimit = 1f;                   // Sets the cooldown of the dash in seconds.

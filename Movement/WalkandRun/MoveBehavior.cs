@@ -37,7 +37,6 @@ public class MoveBehavior : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D c)
     {
-        Debug.Log("Platform found");
         if (c.gameObject.tag == "Platform")
         {
             Debug.Log("Platform found");
