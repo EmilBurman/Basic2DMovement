@@ -13,9 +13,9 @@ public class AllJump : MonoBehaviour, IJump
         {
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
             if (sprint)
-                rigidbody2D.AddForce(Vector2.up * jumpForce * 0.8f, ForceMode2D.Impulse);
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce*0.8f);
             else
-                rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce);
         }
     }
 
@@ -31,7 +31,7 @@ public class AllJump : MonoBehaviour, IJump
                 rigidbody2D.AddForce(Vector2.right * 4.5f, ForceMode2D.Impulse);
 
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 2f);
-            rigidbody2D.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce);
             timesJumped++;
 
             if (timesJumped >= numberOfAirJumps)
