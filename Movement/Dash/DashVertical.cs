@@ -19,7 +19,7 @@ public class DashVertical : MonoBehaviour, IDash
     public DashState dashState;                     // Shows the current state of dashing.
 
     // Internal variables
-    Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
+    new Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
     float dashTimer;                                // Shows the current cooldown.
     float dashCooldownLimit = 1f;                   // Sets the cooldown of the dash in seconds.
     float boostSpeed = 50f;

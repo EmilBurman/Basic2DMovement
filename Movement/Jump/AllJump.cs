@@ -65,7 +65,7 @@ public class AllJump : MonoBehaviour, IJump
     public float jumpForce = 22f;                   // The height the player can jump
 
     //Internal
-    Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
+    new Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
     SpriteRenderer mySpriteRenderer;                // To get the current sprite.
     float sideJumpForce;                            // Force when jumping from a wall.
     float timesJumped;                              // Number of jumps performed.

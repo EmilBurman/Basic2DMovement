@@ -73,7 +73,7 @@ public class Health : MonoBehaviour
 
     void Update()
     {
-        if (damageImage = null)
+        if (damageImage == null)
             // Do nothing
 
             if (showImage)

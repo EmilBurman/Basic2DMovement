@@ -63,7 +63,7 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
     public float wallDistanceCheck;                                 // Defines the distance to check for terrain.
 
     // Internal system variables.
-    Rigidbody2D rigidbody2D;                                        // Reference to the player's rigidbody.
+    new Rigidbody2D rigidbody2D;                                        // Reference to the player's rigidbody.
 
     // Use this for initialization
     void Start()

@@ -66,7 +66,7 @@ public class HeroicMovement : MonoBehaviour, IMovement
     public float sprintForceMultiplier = 40.0f;             // The factor which will * the player speed when sprinting.
 
     bool canWallRide;                                       // Checks if the player can wallride
-    Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
+    new Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
     SpriteRenderer mySpriteRenderer;                // To get the current sprite.
     Vector2 vector2Right;
     Vector2 vector2Left;

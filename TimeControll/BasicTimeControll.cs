@@ -35,7 +35,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
 
     // Set which entity to track
     public GameObject entity;
-    Rigidbody2D rigidbody2D;                        // Reference to the entity's rigidbody.
+    new Rigidbody2D rigidbody2D;                        // Reference to the entity's rigidbody.
     private ArrayList positionArray;
     float interpolation;
 
