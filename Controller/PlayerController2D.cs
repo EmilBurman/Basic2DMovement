@@ -29,6 +29,21 @@ public class PlayerController2D : MonoBehaviour, IController2D
             return Input.GetButtonDown("Jump");
     }
 
+    public bool ContinuousJump()
+    {
+        if (freezeInput)
+            return false;
+        else
+            return Input.GetButton("Jump");
+    }
+
+    public bool EndJump()
+    {
+        if (freezeInput)
+            return false;
+        else
+            return Input.GetButtonUp("Jump");
+    }
     public bool Dash()
     {
         if (freezeInput)

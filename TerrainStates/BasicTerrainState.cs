@@ -87,7 +87,7 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
         bool groundLeftCheck = Physics2D.Raycast(new Vector2(rigidbody2D.transform.position.x - groundCheckSpacing, rigidbody2D.transform.position.y - yAxisExtendFromCollider), Vector2.down, groundDistanceCheck, groundLayer);
         Debug.DrawRay(new Vector2(rigidbody2D.transform.position.x - groundCheckSpacing, rigidbody2D.transform.position.y - yAxisExtendFromCollider), Vector2.down, color = Color.red, 0.1f);
         if (!groundLeftCheck && !groundCenterCheck && !groundRightCheck)
-            Invoke("CoyoteTime", 0.3f);
+            Invoke("CoyoteTime", 0.2f);
         else
             grounded = true;
 

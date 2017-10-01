@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Health : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IHealth
 {
     //Interface------------------------------------------------
     public float CurrentHealth()
@@ -26,7 +26,7 @@ public class Health : MonoBehaviour
             Death();
     }
 
-    void Death()
+    public void Death()
     {
         // Set the death flag so this function won't be called again.
         isDead = true;
@@ -48,7 +48,6 @@ public class Health : MonoBehaviour
     public AudioClip deathClip;                                 // The audio clip to play when the entity dies.
 
     [Header("Hurt Image")]
-    public bool showImage = true;				// Should the script use a flash image?
     public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
     public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
@@ -73,20 +72,15 @@ public class Health : MonoBehaviour
 
     void Update()
     {
-        if (damageImage == null)
-            // Do nothing
+        // If the entity has just been damaged...
+        if (damaged)
+            // ... set the colour of the damageImage to the flash colour.
+            damageImage.color = flashColour;
+        // Otherwise...
+        else
+            // ... transition the colour back to clear.
+           // damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
 
-            if (showImage)
-            {
-                // If the entity has just been damaged...
-                if (damaged)
-                    // ... set the colour of the damageImage to the flash colour.
-                    damageImage.color = flashColour;
-                // Otherwise...
-                else
-                    // ... transition the colour back to clear.
-                    damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
-            }
         // Reset the damaged flag.
         damaged = false;
     }

@@ -6,28 +6,43 @@ using UnityEngine;
 public class AllJump : MonoBehaviour, IJump
 {
     //Interface----------------------------
+    public void SetContinousJump(bool continuousJump, bool endJump)
+    {
+        continuedGroundJump = continuousJump;
+        // Stop the continuous jump if the button is released.
+        if (endJump)
+        {
+            jumpTimeCounter = 0;
+            stoppedGroundJump = true;
+        }
+    }
+
     public void Grounded(bool jump, bool sprint)
     {
+        jumpTimeCounter = jumpTime;
+        stoppedGroundJump = false;
         SetCanAirJump(true);
         if (jump)
         {
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
             if (sprint)
             {
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 2f);
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce * 0.8f);
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0f);
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 1.5f * 0.8f);
             }
             else
             {
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 2f);
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce);
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0f);
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 1.5f);
             }
         }
     }
 
     public void Airborne(bool jump)
     {
-        if (jump && canJump)
+        if (!stoppedGroundJump)
+            ContinuousGroundedJump();
+        else if (jump && canJump)
         {
             // If player wants to change direction, help them change.
             if (rigidbody2D.velocity.x > 0 && mySpriteRenderer.flipX)
@@ -69,13 +84,17 @@ public class AllJump : MonoBehaviour, IJump
     [Header("Jump variables.")]
     public float numberOfAirJumps;
     public float jumpForce = 22f;                   // The height the player can jump
+    public float jumpTime;                          // The time the player can continue to jump from the ground.
 
     //Internal
-    new Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
+    new Rigidbody2D rigidbody2D;                    // Reference to the player's rigidbody.
     SpriteRenderer mySpriteRenderer;                // To get the current sprite.
     float sideJumpForce;                            // Force when jumping from a wall.
     float timesJumped;                              // Number of jumps performed.
+    float jumpTimeCounter;                          // A counter to keep track of how long the player has been jumping.
+    bool continuedGroundJump;
     bool canJump;                                   // Checks if the player can double jump.
+    bool stoppedGroundJump;                         // Checks if the player has stopped a grounded jump.
     Vector2 sideJump;                               // The angle when jumping from a wall.
 
     void Awake()
@@ -96,5 +115,14 @@ public class AllJump : MonoBehaviour, IJump
     {
         rigidbody2D.velocity = new Vector2(0, 0);
         rigidbody2D.AddForce(sideJump * sideJumpForce, ForceMode2D.Impulse);
+    }
+
+    void ContinuousGroundedJump()
+    {
+        if (continuedGroundJump && jumpTimeCounter > 0 && !stoppedGroundJump)
+        {
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 2.5f);
+            jumpTimeCounter -= Time.deltaTime;
+        }
     }
 }

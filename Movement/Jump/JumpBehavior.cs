@@ -24,6 +24,7 @@ public class JumpBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
+        jump.SetContinousJump(controller.ContinuousJump(), controller.EndJump());
         if (stateMachine.Grounded())
             jump.Grounded(controller.Jump(), controller.Sprint());
         else if (stateMachine.Airborne())
