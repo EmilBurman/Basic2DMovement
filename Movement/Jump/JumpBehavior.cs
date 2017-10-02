@@ -24,16 +24,17 @@ public class JumpBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
-        jump.SetContinousJump(controller.ContinuousJump(), controller.EndJump());
+        jump.SetContinousJump(controller.Jump(), controller.EndJump());
         if (stateMachine.Grounded())
             jump.Grounded(controller.Jump(), controller.Sprint());
         else if (stateMachine.Airborne())
         {
-            jump.Airborne(controller.Jump());
             if (stateMachine.WallLeft())
                 jump.LeftWall(controller.Jump());
-            if (stateMachine.WallRight())
+            else if (stateMachine.WallRight())
                 jump.RightWall(controller.Jump());
+            else
+                jump.Airborne(controller.Jump());
         }
     }
 }

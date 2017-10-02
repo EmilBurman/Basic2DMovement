@@ -40,5 +40,6 @@ public class MovingPlatform : MonoBehaviour
             thisTransform.position = Vector3.Lerp(startPos, endPos, i);
             yield return null;
         }
+        yield return new WaitForSeconds(2f);
     }
 }

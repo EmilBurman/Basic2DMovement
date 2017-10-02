@@ -45,7 +45,6 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
     public float groundCheckSpacing = 0.94f;                        // Determines how to space out the left and right ground checks.
     public float yAxisRayCastStartPoint = 0.01f;                    // Defines how far out from the collider to check for the ground.
     float yAxisExtendFromCollider;                                  // Gets collider and sets raycast starting point for the ground.
-    bool grounded;
 
     //Checks for walls.
     [Header("Wall variables.")]
@@ -63,7 +62,8 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
     public float wallDistanceCheck;                                 // Defines the distance to check for terrain.
 
     // Internal system variables.
-    new Rigidbody2D rigidbody2D;                                        // Reference to the player's rigidbody.
+    new Rigidbody2D rigidbody2D;                                    // Reference to the player's rigidbody.
+    bool grounded;
 
     // Use this for initialization
     void Start()

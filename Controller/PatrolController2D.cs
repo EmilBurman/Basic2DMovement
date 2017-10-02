@@ -21,11 +21,6 @@ public class PatrolController2D : MonoBehaviour, IController2D
         return false;
     }
 
-    public bool ContinuousJump()
-    {
-        return false;
-    }
-
     public bool EndJump()
     {
         return false;
