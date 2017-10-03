@@ -31,7 +31,7 @@ public class HeroicMovement : MonoBehaviour, IMovement
 
         // If player is falling, increase gravity
         if (rigidbody2D.velocity.y < -0.001)
-            rigidbody2D.AddForce(Physics.gravity * 1.4f, ForceMode2D.Force);
+            rigidbody2D.AddForce(Physics.gravity * 1.2f, ForceMode2D.Force);
         MovementSpeedClamp();
     }
 
@@ -87,7 +87,7 @@ public class HeroicMovement : MonoBehaviour, IMovement
 
     void MovementSpeedClamp()
     {
-        if (rigidbody2D.velocity.sqrMagnitude > moveSpeed * 1.3f)
+        if (rigidbody2D.velocity.sqrMagnitude > moveSpeed * 1.2f)
             rigidbody2D.velocity *= 0.97f;
     }
 }
