@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    public float smoothing,
-                 waitTime;
-    public Vector3 startPosition,
-                   currentPosition,
-                   endPosition;
-    float startTime;
-    float distCovered;
+    public float speed;
+
+    [Header("Setup for end points.")]
+    public Vector3 startPosition;
+    public Vector3 endPosition;
 
     // Use this for initialization
     void Start()
@@ -19,27 +17,9 @@ public class MovingPlatform : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Debug.DrawLine(startPosition, endPosition, Color.blue);
-        currentPosition = transform.position;
-
-        if (Vector3.Distance(transform.position, startPosition) < 0.06f)
-            StartCoroutine(MovePlatform(transform, currentPosition, endPosition, 3));
-        if (Vector3.Distance(transform.position, endPosition) < 0.06f)
-            StartCoroutine(MovePlatform(transform, currentPosition, startPosition, 3));
-    }
-
-    IEnumerator MovePlatform(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
-    {
-        float i = 0.0f;
-        float rate = smoothing / time;
-        while (i < 1.0f)
-        {
-            i += Time.deltaTime * rate;
-            thisTransform.position = Vector3.Lerp(startPos, endPos, i);
-            yield return null;
-        }
-        yield return new WaitForSeconds(2f);
+        transform.position = Vector3.Lerp(startPosition, endPosition, Mathf.SmoothStep(0f, 1f, Mathf.PingPong(Time.time / speed, 1f)));
     }
 }

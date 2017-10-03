@@ -5,13 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class CrushingPillar : MonoBehaviour
 {
-    public float smoothing,
-                   waitTime;
+    public float speed;
     public bool teleportPlayer;
 
     [Header("Setup for end points.")]
     public Vector3 startPosition;
-    public Vector3 currentPosition;
     public Vector3 endPosition;
 
     [Header("Setup for exit point")]
@@ -28,19 +26,13 @@ public class CrushingPillar : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-
         Debug.DrawLine(startPosition, endPosition, Color.blue);
         if (teleportPlayer)
             Debug.DrawLine(transform.position, exitPoint, Color.green);
 
-        currentPosition = transform.position;
-
-        if (Vector3.Distance(transform.position, startPosition) < 0.06f)
-            StartCoroutine(MovePillar(transform, currentPosition, endPosition, 3));
-        if (Vector3.Distance(transform.position, endPosition) < 0.06f)
-            StartCoroutine(MovePillar(transform, currentPosition, startPosition, 3));
+        transform.position = Vector3.Lerp(startPosition, endPosition, Mathf.SmoothStep(0f, 1f, Mathf.PingPong(Time.time / speed, 1f)));
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -49,17 +41,5 @@ public class CrushingPillar : MonoBehaviour
             collision.transform.position = exitPoint;
         else
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    IEnumerator MovePillar(Transform thisTransform, Vector3 startPos, Vector3 endPos, float time)
-    {
-        float i = 0.0f;
-        float rate = smoothing / time;
-        while (i < 1.0f)
-        {
-            i += Time.deltaTime * rate;
-            thisTransform.position = Vector3.Lerp(startPos, endPos, i);
-            yield return null;
-        }
     }
 }

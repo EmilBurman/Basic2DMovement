@@ -13,6 +13,7 @@ public class TimeTraceEntity : MonoBehaviour
     void Start()
     {
         traceEntity = transform.parent.gameObject;
+        transform.position = transform.parent.position;
         timeControllScript = traceEntity.GetComponent<ITimeControll>();
         StartCoroutine(LateStart(2));
     }
