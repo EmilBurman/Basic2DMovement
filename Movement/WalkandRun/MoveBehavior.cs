@@ -39,7 +39,6 @@ public class MoveBehavior : MonoBehaviour
     {
         if (c.gameObject.tag == "Platform")
         {
-            Debug.Log("Platform found");
             transform.parent = c.gameObject.transform;
         }
     }
@@ -47,7 +46,6 @@ public class MoveBehavior : MonoBehaviour
     {
         if (c.transform.tag == "Platform")
         {
-            Debug.Log("Platform exit");
             transform.parent = null;
         }
     }

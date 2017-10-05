@@ -9,7 +9,6 @@ public class AllJump : MonoBehaviour, IJump
     public void SetContinousJump(bool continuousJump, bool endJump)
     {
         continuedJump = continuousJump;
-        Debug.Log(needToReleaseJump);
         // Stop the continuous jump if the button is released.
         if (endJump)
         {
@@ -21,24 +20,26 @@ public class AllJump : MonoBehaviour, IJump
 
     public void Grounded(bool jump, bool sprint)
     {
-        jumpTimeCounter = jumpTime;
-        stoppedGroundJump = false;
+        jumpTimeCounter = continuousJumpTime;
         needToReleaseJump = true;
         SetCanAirJump(true);
-        if (jump)
+        if (jump && stoppedGroundJump)
         {
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
             if (sprint)
             {
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0f);
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 1.5f * 0.8f);
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 1.2f * 0.8f);
             }
             else
             {
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0f);
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 1.5f);
+                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 1.2f);
             }
+            stoppedGroundJump = false;
         }
+        else
+            ContinuousGroundedJump();
     }
 
     public void Airborne(bool jump)
@@ -55,7 +56,7 @@ public class AllJump : MonoBehaviour, IJump
                 rigidbody2D.AddForce(Vector2.right * 4.5f, ForceMode2D.Impulse);
 
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 2f);
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce);
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce * 1.2f);
             timesJumped++;
             needToReleaseJump = true;
 
@@ -87,8 +88,8 @@ public class AllJump : MonoBehaviour, IJump
 
     [Header("Jump variables.")]
     public float numberOfAirJumps;
-    public float jumpForce = 22f;                   // The height the player can jump
-    public float jumpTime;                          // The time the player can continue to jump from the ground.
+    public float jumpForce = 16f;                   // The height the player can jump
+    public float continuousJumpTime;                // The time the player can continue to jump from the ground.
 
     //Internal
     new Rigidbody2D rigidbody2D;                    // Reference to the player's rigidbody.
@@ -118,21 +119,21 @@ public class AllJump : MonoBehaviour, IJump
 
     void WallJump()
     {
-	    if (!stoppedGroundJump)
-		    ContinuousGroundedJump();
-	    else if (!needToReleaseJump)
-	    {
-        	rigidbody2D.velocity = new Vector2(0, 0);
-        	rigidbody2D.AddForce(sideJump * sideJumpForce, ForceMode2D.Impulse);
-        	needToReleaseJump = true;
-	    }
+        if (!stoppedGroundJump)
+            ContinuousGroundedJump();
+        else if (!needToReleaseJump)
+        {
+            rigidbody2D.velocity = new Vector2(0, 0);
+            rigidbody2D.AddForce(sideJump * sideJumpForce, ForceMode2D.Impulse);
+            needToReleaseJump = true;
+        }
     }
 
     void ContinuousGroundedJump()
     {
-        if (continuedJump && jumpTimeCounter > 0 && !stoppedGroundJump)
+        if (!stoppedGroundJump && continuedJump && jumpTimeCounter > 0)
         {
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 2.5f);
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 2f);
             jumpTimeCounter -= Time.deltaTime;
         }
     }
