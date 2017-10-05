@@ -67,9 +67,8 @@ public class AllJump : MonoBehaviour, IJump
     public void RightWall(bool jump)
     {
         SetCanAirJump(true);
-        if (jump && !needToReleaseJump)
+        if (jump)
         {
-            Debug.Log("Jump wall left");
             sideJump = new Vector2(-0.7f, 0.9f);
             WallJump();
         }
@@ -78,7 +77,7 @@ public class AllJump : MonoBehaviour, IJump
     public void LeftWall(bool jump)
     {
         SetCanAirJump(true);
-        if (jump && !needToReleaseJump)
+        if (jump)
         {
             sideJump = new Vector2(0.7f, 0.9f);
             WallJump();
@@ -119,9 +118,14 @@ public class AllJump : MonoBehaviour, IJump
 
     void WallJump()
     {
-        rigidbody2D.velocity = new Vector2(0, 0);
-        rigidbody2D.AddForce(sideJump * sideJumpForce, ForceMode2D.Impulse);
-        needToReleaseJump = true;
+	    if (!stoppedGroundJump)
+		    ContinuousGroundedJump();
+	    else if (!needToReleaseJump)
+	    {
+        	rigidbody2D.velocity = new Vector2(0, 0);
+        	rigidbody2D.AddForce(sideJump * sideJumpForce, ForceMode2D.Impulse);
+        	needToReleaseJump = true;
+	    }
     }
 
     void ContinuousGroundedJump()
