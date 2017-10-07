@@ -6,5 +6,6 @@ public interface IHealth
 {
     float CurrentHealth();
     void TakeDamage(int amount);
+    bool Invulnerable(bool state);
     void Death();
 }

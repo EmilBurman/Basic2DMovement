@@ -31,6 +31,11 @@ public class EnemyHealth : MonoBehaviour, IHealth
             Death();
 
     }
+    public bool Invulnerable(bool state)
+    {
+        isInvulnerable = state;
+        return isInvulnerable;
+    }
 
     public void Death()
     {
@@ -63,6 +68,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
     CapsuleCollider capsuleCollider;            		// Reference to the capsule collider.
     bool isDead;                                		// Whether the enemy is dead.
     bool isSinking;                             		// Whether the enemy has started sinking through the floor.
+    bool isInvulnerable;
 
 
     void Awake()

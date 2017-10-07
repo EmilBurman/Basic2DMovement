@@ -11,19 +11,29 @@ public class PlayerHealth : MonoBehaviour, IHealth
     }
     public void TakeDamage(int amount)
     {
-        // Set the damaged flag so the screen will flash.
-        damaged = true;
+        if (!isInvulnerable)
+        {
+            // Set the damaged flag so the screen will flash.
+            damaged = true;
 
-        // Reduce the current health by the damage amount.
-        currentHealth -= amount;
+            // Reduce the current health by the damage amount.
+            currentHealth -= amount;
 
-        // Play the hurt sound effect.
-        audioComponent.Play();
+            // Play the hurt sound effect.
+            audioComponent.Play();
 
-        // If the entity has lost all it's health and the death flag hasn't been set yet...
-        if (currentHealth <= 0 && !isDead)
-            // ... it should die.
-            Death();
+            // If the entity has lost all it's health and the death flag hasn't been set yet...
+            if (currentHealth <= 0 && !isDead)
+                // ... it should die.
+                Death();
+        }
+        healthSlider.value = currentHealth;
+    }
+
+    public bool Invulnerable(bool state)
+    {
+        isInvulnerable = state;
+        return isInvulnerable;
     }
 
     public void Death()
@@ -51,12 +61,14 @@ public class PlayerHealth : MonoBehaviour, IHealth
     public Image damageImage;                                   // Reference to an image to flash on the screen on being hurt.
     public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
+    public Slider healthSlider;                                 // Reference to the UI's health bar.
 
     // Internal system variables.
     Animator anim;                                              // Reference to the Animator component.
     AudioSource audioComponent;                                 // Reference to the AudioSource component.
     bool isDead;                                                // Whether the entity is dead.
     bool damaged;                                               // True when the player gets damaged.
+    bool isInvulnerable;
 
 
     void Awake()
@@ -67,6 +79,9 @@ public class PlayerHealth : MonoBehaviour, IHealth
 
         // Set the initial health of the entity.
         currentHealth = startingHealth;
+
+        healthSlider.value = currentHealth;
+        isInvulnerable = false;
     }
 
 
@@ -79,9 +94,9 @@ public class PlayerHealth : MonoBehaviour, IHealth
         // Otherwise...
         else
             // ... transition the colour back to clear.
-           // damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+            // damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
 
-        // Reset the damaged flag.
-        damaged = false;
+            // Reset the damaged flag.
+            damaged = false;
     }
 }

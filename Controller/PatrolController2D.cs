@@ -56,6 +56,7 @@ public class PatrolController2D : MonoBehaviour, IController2D
     public PatrolState patrolState;                     // Shows the current state of dashing.
     float horizontalDirection;
     bool sprint;
+    bool attackEntity;
     LineOfSight LoS;
     // Use this for initialization
     void Start()
@@ -68,6 +69,7 @@ public class PatrolController2D : MonoBehaviour, IController2D
         PatrolStateCheck();
         LoSCheck();
     }
+
 
     void PatrolStateCheck()
     {
@@ -90,6 +92,11 @@ public class PatrolController2D : MonoBehaviour, IController2D
                     patrolState = PatrolState.PatrolRight;
                 break;
         }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+            collision.gameObject.GetComponent<IHealth>().TakeDamage(20);
     }
     void LoSCheck()
     {

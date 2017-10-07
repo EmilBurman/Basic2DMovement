@@ -18,8 +18,9 @@ public class DashMultiDirection : MonoBehaviour, IDash
     }
     // End interface------------------------
 
-    new Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
+    new Rigidbody2D rigidbody2D;                    // Reference to the player's rigidbody.
     public DashState dashState;                     // Shows the current state of dashing.
+    IHealth invulnerableState;                      // Use to stop player from taking damage while dashing
     float dashTimer;                                // Shows the current cooldown.
     float dashCooldownLimit = 1f;                   // Sets the cooldown of the dash in seconds.
     float boostSpeed = 50f;
@@ -33,6 +34,8 @@ public class DashMultiDirection : MonoBehaviour, IDash
     void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
+        invulnerableState = GetComponent<IHealth>();
+
         boostSpeedRight = new Vector2(boostSpeed, 0);
         boostSpeedLeft = new Vector2(-boostSpeed, 0);
         boostSpeedUp = new Vector2(0, boostSpeed);
@@ -57,6 +60,7 @@ public class DashMultiDirection : MonoBehaviour, IDash
                 break;
             case DashState.Dashing:
                 // Set the cooldown and initate cooldown state.
+                invulnerableState.Invulnerable(false);
                 dashTimer += Time.deltaTime * 3;
                 if (dashTimer >= dashCooldownLimit)
                 {
@@ -79,6 +83,7 @@ public class DashMultiDirection : MonoBehaviour, IDash
         float time = 0f; //create float to store the time this coroutine is operating
         while (boostDur > time) //we call this loop every frame while our custom boostDuration is a higher value than the "time" variable in this coroutine
         {
+            invulnerableState.Invulnerable(true);
             time += Time.deltaTime; //Increase our "time" variable by the amount of time that it has been since the last update
             if (hAxis > 0)
                 rigidbody2D.velocity = boostSpeedRight;
@@ -94,6 +99,7 @@ public class DashMultiDirection : MonoBehaviour, IDash
         float time = 0f; //create float to store the time this coroutine is operating
         while (boostDur > time) //we call this loop every frame while our custom boostDuration is a higher value than the "time" variable in this coroutine
         {
+            invulnerableState.Invulnerable(true);
             time += Time.deltaTime; //Increase our "time" variable by the amount of time that it has been since the last update
             if (yAxis > 0)
                 rigidbody2D.velocity = boostSpeedUp;
