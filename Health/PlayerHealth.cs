@@ -20,7 +20,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
             currentHealth -= amount;
 
             // Play the hurt sound effect.
-            audioComponent.Play();
+            // audioComponent.Play();
 
             // If the entity has lost all it's health and the death flag hasn't been set yet...
             if (currentHealth <= 0 && !isDead)
