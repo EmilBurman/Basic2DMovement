@@ -52,6 +52,14 @@ public class PlayerController2D : MonoBehaviour, IController2D
             return Input.GetButton("Sprint");
     }
 
+    public bool Attack()
+    {
+        if (freezeInput)
+            return false;
+        else
+            return Input.GetButton("Attack");
+    }
+
     public bool FlashReverse()
     {
         if (freezeInput)

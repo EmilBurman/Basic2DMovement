@@ -10,6 +10,7 @@ public interface IController2D
     bool EndJump();
     bool Dash();
     bool Sprint();
+    bool Attack();
     bool FlashReverse();
     bool SlowReverse();
 }

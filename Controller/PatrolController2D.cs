@@ -35,6 +35,12 @@ public class PatrolController2D : MonoBehaviour, IController2D
         return 0;
     }
 
+    public bool Attack()
+    {
+
+        return false;
+    }
+
     public bool SlowReverse()
     {
         return false;
