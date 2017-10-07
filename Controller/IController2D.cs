@@ -11,6 +11,7 @@ public interface IController2D
     bool Dash();
     bool Sprint();
     bool Attack();
+    bool EndAttackCharge();
     bool FlashReverse();
     bool SlowReverse();
 }

@@ -41,7 +41,7 @@ public class PlayerController2D : MonoBehaviour, IController2D
         if (freezeInput)
             return false;
         else
-            return Input.GetButtonDown("Dash");
+            return Input.GetButton("Dash");
     }
 
     public bool Sprint()
@@ -60,6 +60,14 @@ public class PlayerController2D : MonoBehaviour, IController2D
             return Input.GetButton("Attack");
     }
 
+    public bool EndAttackCharge()
+    {
+        if (freezeInput)
+            return false;
+        else
+            return Input.GetButtonUp("Attack");
+    }
+
     public bool FlashReverse()
     {
         if (freezeInput)
@@ -67,7 +75,7 @@ public class PlayerController2D : MonoBehaviour, IController2D
         else
             return Input.GetButtonDown("Flash");
     }
-    
+
     public bool SlowReverse()
     {
         freezeInput = Input.GetButton("Reverse");

@@ -30,12 +30,19 @@ public class PatrolController2D : MonoBehaviour, IController2D
     {
         return horizontalDirection;
     }
+
     public float MoveVertical()
     {
         return 0;
     }
 
     public bool Attack()
+    {
+
+        return false;
+    }
+
+    public bool EndAttackCharge()
     {
 
         return false;
