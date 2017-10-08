@@ -57,6 +57,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     [Header("Health setup.")]
     public int startingHealth = 100;                            // The amount of health the entity starts the game with.
     public int currentHealth;                                   // The current health of the entity.
+    public bool isInvulnerable;
     public AudioClip deathClip;                                 // The audio clip to play when the entity dies.
 
     [Header("Hurt Image")]
@@ -70,8 +71,6 @@ public class PlayerHealth : MonoBehaviour, IHealth
     AudioSource audioComponent;                                 // Reference to the AudioSource component.
     bool isDead;                                                // Whether the entity is dead.
     bool damaged;                                               // True when the player gets damaged.
-    bool isInvulnerable;
-
 
     void Awake()
     {

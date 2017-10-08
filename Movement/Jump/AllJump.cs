@@ -12,7 +12,9 @@ public class AllJump : MonoBehaviour, IJump
         // Stop the continuous jump if the button is released.
         if (endJump)
         {
+            //Reset the counter for max jump time
             jumpTimeCounter = 0;
+            //Set the variables to be ready for the next jump
             stoppedGroundJump = true;
             needToReleaseJump = false;
         }
@@ -20,22 +22,17 @@ public class AllJump : MonoBehaviour, IJump
 
     public void Grounded(bool jump, bool sprint)
     {
-        jumpTimeCounter = continuousJumpTime; 
+        jumpTimeCounter = continuousJumpTime;
         SetCanAirJump(true);
         if (jump && stoppedGroundJump)
         {
             needToReleaseJump = true;
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0f);
             if (sprint)
-            {
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0f);
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 1.2f * 0.8f);
-            }
             else
-            {
-                rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0f);
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 1.2f);
-            }
+
             stoppedGroundJump = false;
         }
         else

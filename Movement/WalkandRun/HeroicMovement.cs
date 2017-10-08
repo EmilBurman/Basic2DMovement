@@ -65,9 +65,10 @@ public class HeroicMovement : MonoBehaviour, IMovement
     public float moveSpeed = 8.0f;                          // The speed that the player will move at.
     public float sprintForceMultiplier = 40.0f;             // The factor which will * the player speed when sprinting.
 
+    //Internal variables
     bool canWallRide;                                       // Checks if the player can wallride
-    new Rigidbody2D rigidbody2D;                        // Reference to the player's rigidbody.
-    SpriteRenderer mySpriteRenderer;                // To get the current sprite.
+    new Rigidbody2D rigidbody2D;                            // Reference to the player's rigidbody.
+    SpriteRenderer mySpriteRenderer;                        // To get the current sprite.
     Vector2 vector2Right;
     Vector2 vector2Left;
 
@@ -77,6 +78,8 @@ public class HeroicMovement : MonoBehaviour, IMovement
         // Set up references.
         rigidbody2D = GetComponent<Rigidbody2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+
+        //Create own definitions for left and right
         vector2Right = new Vector2(1f, rigidbody2D.velocity.y);
         vector2Left = new Vector2(-1f, rigidbody2D.velocity.y);
     }
@@ -87,8 +90,11 @@ public class HeroicMovement : MonoBehaviour, IMovement
 
     void MovementSpeedClamp()
     {
+        //Checks all movement and clamps it.
         if (rigidbody2D.velocity.sqrMagnitude > moveSpeed * 1.2f)
             rigidbody2D.velocity *= 0.97f;
+
+        //Harder clamp for y movement.
         if (rigidbody2D.velocity.y < -14f)
             rigidbody2D.velocity *= 0.97f;
     }
