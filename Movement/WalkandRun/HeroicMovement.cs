@@ -89,5 +89,7 @@ public class HeroicMovement : MonoBehaviour, IMovement
     {
         if (rigidbody2D.velocity.sqrMagnitude > moveSpeed * 1.2f)
             rigidbody2D.velocity *= 0.97f;
+        if (rigidbody2D.velocity.y < -14f)
+            rigidbody2D.velocity *= 0.97f;
     }
 }

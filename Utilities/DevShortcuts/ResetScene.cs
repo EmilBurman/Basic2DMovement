@@ -9,6 +9,7 @@ public class ResetScene : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (collision.gameObject.tag == "Player")
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

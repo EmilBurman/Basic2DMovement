@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour, IHealth
 {
@@ -40,6 +41,7 @@ public class PlayerHealth : MonoBehaviour, IHealth
     {
         // Set the death flag so this function won't be called again.
         isDead = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
         // Tell the animator that the player is dead.
         anim.SetTrigger("Die");

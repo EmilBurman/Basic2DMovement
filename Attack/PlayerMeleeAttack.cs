@@ -30,4 +30,9 @@ public class PlayerMeleeAttack : MonoBehaviour, IAttack
     {
 
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+            collision.gameObject.GetComponent<IHealth>().TakeDamage(20);
+    }
 }

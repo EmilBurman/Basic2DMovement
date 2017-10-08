@@ -20,11 +20,11 @@ public class AllJump : MonoBehaviour, IJump
 
     public void Grounded(bool jump, bool sprint)
     {
-        jumpTimeCounter = continuousJumpTime;
-        needToReleaseJump = true;
+        jumpTimeCounter = continuousJumpTime; 
         SetCanAirJump(true);
         if (jump && stoppedGroundJump)
         {
+            needToReleaseJump = true;
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
             if (sprint)
             {
@@ -131,7 +131,7 @@ public class AllJump : MonoBehaviour, IJump
 
     void ContinuousGroundedJump()
     {
-        if (!stoppedGroundJump && continuedJump && jumpTimeCounter > 0)
+        if (continuedJump && jumpTimeCounter > 0)
         {
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 2f);
             jumpTimeCounter -= Time.deltaTime;
