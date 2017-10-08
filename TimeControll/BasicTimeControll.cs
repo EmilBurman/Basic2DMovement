@@ -49,25 +49,25 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
     float reverseCooldownLimit = 5f;        	// Sets the cooldown of the dash in seconds.
 
     //Determine how much to save
-    private int keyframe = 10;
+    int keyframe = 10;
 
     //Amount recorded.
-    private int frameCounter = 0;
+    int frameCounter = 0;
 
     //Amount played back.
-    private int reverseCounter = 0;
+    int reverseCounter = 0;
 
     // Variables to interpolate between keyframes
-    private Vector2 currentPosition;
-    private Vector2 previousPosition;
+    Vector2 currentPosition;
+    Vector2 previousPosition;
 
     // Spawn/destory for the point of max return.
-    SpawnEntity returnPoint;
+    SpawnChildEntity returnPoint;
 
     void Awake()
     {
         positionArray = new ArrayList();
-        returnPoint = GetComponent<SpawnEntity>();
+        returnPoint = GetComponent<SpawnChildEntity>();
         timeState = TimeState.Ready;
         returnPoint.SpawnObject(true);
         rigidbody2D = GetComponent<Rigidbody2D>();
