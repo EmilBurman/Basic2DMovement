@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+    [Header("Setup for platform speed and movement.")]
+    public bool shouldMove;
     public float speed;
 
     [Header("Setup for end points.")]
@@ -20,6 +22,7 @@ public class MovingPlatform : MonoBehaviour
     void FixedUpdate()
     {
         Debug.DrawLine(startPosition, endPosition, Color.blue);
-        transform.position = Vector3.Lerp(startPosition, endPosition, Mathf.SmoothStep(0f, 1f, Mathf.PingPong(Time.time / speed, 1f)));
+        if(shouldMove)
+            transform.position = Vector3.Lerp(startPosition, endPosition, Mathf.SmoothStep(0f, 1f, Mathf.PingPong(Time.time / speed, 1f)));
     }
 }

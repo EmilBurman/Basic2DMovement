@@ -28,7 +28,7 @@ public class FlipSprite : MonoBehaviour
     {
         if (playerRb2D.velocity.x < -0.001 || (stateMachine.Airborne() && stateMachine.WallRight()))
             mySpriteRenderer.flipX = true;
-        else if (playerRb2D.velocity.x >= 0 || (stateMachine.Airborne() && stateMachine.WallLeft()))
+        if (playerRb2D.velocity.x > 0 || (stateMachine.Airborne() && stateMachine.WallLeft()))
             mySpriteRenderer.flipX = false;
     }
 }
