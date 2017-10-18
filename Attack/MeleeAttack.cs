@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMeleeAttack : MonoBehaviour, IAttack
+public class MeleeAttack : MonoBehaviour, IAttack
 {
     // Interface----------------------------
     public void Attack()

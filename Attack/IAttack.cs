@@ -4,7 +4,6 @@ using UnityEngine;
 
 public interface IAttack
 {
-    void Attack();
-    void AirBorneAttack();
+    void Attack(float hAxis, float yAxis);
     void AttackButtonUp();
 }

@@ -9,6 +9,11 @@ public class Bullet : MonoBehaviour
     [Header("Bullet setup")]
     public float bulletSpeed;
 
+    public void SetDirection (Angle direction)
+    {
+
+    }
+
     //Internal variables
     new CircleCollider2D collider;
     new Rigidbody2D rigidbody2D;
@@ -49,10 +54,10 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             collision.gameObject.GetComponent<IHealth>().TakeDamage(20);
         }
         else
-            Destroy(this.gameObject);
+            Destroy(gameObject);
     }
 }
