@@ -1,6 +1,5 @@
-﻿using System;
+﻿using StateEnumerators;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DashHorizontal : MonoBehaviour, IDash

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class JumpBehavior : MonoBehaviour
 {
-    private IController2D controller;
-    private ITerrainState stateMachine;
-    private IJump jump;
+    IController2D controller;
+    ITerrainState stateMachine;
+    IJump jump;
 
     void Awake()
     {

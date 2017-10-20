@@ -1,21 +1,34 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MeleeAttack : MonoBehaviour, IAttack
 {
     // Interface----------------------------
-    public void Attack()
+    public void GroundedAttack(bool attack, bool lockedShooting, float hAxis, float yAxis)
     {
-
+        throw new NotImplementedException();
     }
-    public void AirBorneAttack()
-    {
 
+    public void AirborneAttack(bool attack, bool lockedShooting, float hAxis, float yAxis)
+    {
+        throw new NotImplementedException();
     }
-    public void AttackButtonUp()
-    {
 
+    public void WallAttackLeft(bool attack, bool lockedShooting)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void WallAttackRight(bool attack, bool lockedShooting)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AttackButtonUp(bool attack)
+    {
+        throw new NotImplementedException();
     }
     //End interface--------------------------------------------
 

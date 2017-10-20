@@ -1,6 +1,5 @@
-using System;
+using StateEnumerators;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicTimeControll : MonoBehaviour, ITimeControll
@@ -160,13 +159,6 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
         }
         rigidbody2D.velocity = new Vector2(0, 0.5f);
     }
-}
-
-public enum TimeState
-{
-    Ready,
-    Reversing,
-    Cooldown
 }
 
 public class PositionArray

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public interface IAttack
 {
-    void Attack(float hAxis, float yAxis);
-    void AttackButtonUp();
+    void GroundedAttack(bool attack, bool lockedShooting, float hAxis, float yAxis);
+    void AirborneAttack(bool attack, bool lockedShooting, float hAxis, float yAxis);
+    void WallAttackLeft(bool attack, bool lockedShooting);
+    void WallAttackRight(bool attack, bool lockedShooting);
+    void AttackButtonUp(bool attack);
 }

@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using StateEnumerators;
+using System.Collections;
 using UnityEngine;
 
 public class DashVertical : MonoBehaviour, IDash

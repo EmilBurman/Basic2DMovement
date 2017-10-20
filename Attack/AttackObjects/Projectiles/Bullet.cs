@@ -1,24 +1,28 @@
-﻿using System;
+﻿using StateEnumerators;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D), typeof(Rigidbody2D))]
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IProjectile
 {
+    //Interface
+    public void SetDirection(Directions direction)
+    {
+        this.direction = direction;
+    }
+
+    //End interface
+
     [Header("Bullet setup")]
     public float bulletSpeed;
-
-    public void SetDirection (Angle direction)
-    {
-
-    }
 
     //Internal variables
     new CircleCollider2D collider;
     new Rigidbody2D rigidbody2D;
-    Vector2 exitDirection;
-    public Angle angleDirection;
+    Directions direction;
+    Vector2 target;
 
     // Use this for initialization
     void Awake()
@@ -26,28 +30,27 @@ public class Bullet : MonoBehaviour
         transform.parent = null;
         collider = GetComponent<CircleCollider2D>();
         rigidbody2D = GetComponent<Rigidbody2D>();
-
-        switch (angleDirection)
-        {
-            case Angle.up:
-                exitDirection = new Vector2(0, bulletSpeed);
-                break;
-            case Angle.right:
-                exitDirection = new Vector2(bulletSpeed, 0);
-                break;
-            case Angle.down:
-                exitDirection = new Vector2(0, -bulletSpeed);
-                break;
-            case Angle.left:
-                exitDirection = new Vector2(-bulletSpeed, 0);
-                break;
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        rigidbody2D.velocity = exitDirection;
+        switch (direction)
+        {
+            case Directions.Up:
+                target = new Vector2(0, bulletSpeed);
+                break;
+            case Directions.Down:
+                target = new Vector2(0, -bulletSpeed);
+                break;
+            case Directions.Left:
+                target = new Vector2(-bulletSpeed, 0);
+                break;
+            case Directions.Right:
+                target = new Vector2(bulletSpeed, 0);
+                break;
+        }
+        rigidbody2D.velocity = target;
     }
 
     void OnCollisionEnter2D(Collision2D collision)

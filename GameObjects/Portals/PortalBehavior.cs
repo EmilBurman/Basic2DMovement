@@ -1,3 +1,4 @@
+using StateEnumerators;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class PortalBehavior : MonoBehaviour
     bool isActive;
 
     //Internal variables
-    Angle angleDirection;
+    Directions angleDirection;
     Vector3 entityOffset;
     Vector3 offSetDistanceFixed;
     Vector2 exitDirection;
@@ -25,16 +26,16 @@ public class PortalBehavior : MonoBehaviour
     void Start()
     {
         if (transform.rotation.eulerAngles.z >= 0 && transform.rotation.eulerAngles.z < 90)
-            angleDirection = Angle.up;
+            angleDirection = Directions.Up;
 
         if (transform.rotation.eulerAngles.z >= 90 && transform.rotation.eulerAngles.z < 180)
-            angleDirection = Angle.left;
+            angleDirection = Directions.Left;
 
         if (transform.rotation.eulerAngles.z >= 180 && transform.rotation.eulerAngles.z < 270)
-            angleDirection = Angle.down;
+            angleDirection = Directions.Down;
 
         if (transform.rotation.eulerAngles.z >= 270 && transform.rotation.eulerAngles.z < 360)
-            angleDirection = Angle.right;
+            angleDirection = Directions.Right;
         isActive = false;
     }
 
@@ -51,22 +52,22 @@ public class PortalBehavior : MonoBehaviour
     {
         switch (angleDirection)
         {
-            case Angle.up:
+            case Directions.Up:
                 entityOffset = new Vector3(0, entitySize.extents.y, 0);
                 offSetDistanceFixed = new Vector3(0, offSetDistance, 0);
                 exitDirection = new Vector2(0, 1);
                 break;
-            case Angle.right:
+            case Directions.Right:
                 entityOffset = new Vector3(entitySize.extents.x, 0, 0);
                 offSetDistanceFixed = new Vector3(offSetDistance, 0, 0);
                 exitDirection = new Vector2(1, 0);
                 break;
-            case Angle.down:
+            case Directions.Down:
                 entityOffset = new Vector3(0, -entitySize.extents.y, 0);
                 offSetDistanceFixed = new Vector3(0, -offSetDistance, 0);
                 exitDirection = new Vector2(0, -1);
                 break;
-            case Angle.left:
+            case Directions.Left:
                 entityOffset = new Vector3(-entitySize.extents.x, 0, 0);
                 offSetDistanceFixed = new Vector3(-offSetDistance, 0, 0);
                 exitDirection = new Vector2(-1, 0);
@@ -94,7 +95,7 @@ public class PortalBehavior : MonoBehaviour
                     speed = Mathf.Abs(velocityY);
                 portal.GetComponent<PortalBehavior>().setActive(true);
                 collision.transform.position = portal.GetComponent<PortalBehavior>().portalExitPoint(collision.bounds);
-                collision.GetComponent<Rigidbody2D>().AddForce(exitDirection * (speed*1.2f), ForceMode2D.Impulse);
+                collision.GetComponent<Rigidbody2D>().AddForce(exitDirection * (speed * 1.2f), ForceMode2D.Impulse);
                 portal.GetComponent<PortalBehavior>().setActive(false);
             }
             else
@@ -107,4 +108,3 @@ public class PortalBehavior : MonoBehaviour
         isActive = false;
     }
 }
-public enum Angle { up, down, right, left }

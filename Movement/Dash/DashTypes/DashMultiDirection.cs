@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using StateEnumerators;
+using System.Collections;
 using UnityEngine;
 
 public class DashMultiDirection : MonoBehaviour, IDash
@@ -66,7 +66,6 @@ public class DashMultiDirection : MonoBehaviour, IDash
             case DashState.Dashing:
                 //Remove the invulnerability after a short delay
                 Invoke("DelayedVulnerability", 0.1f);
-
                 //Set the cooldown
                 dashTimer += Time.deltaTime * 3;
                 if (dashTimer >= dashCooldownLimit)
