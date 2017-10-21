@@ -55,12 +55,15 @@ public class Bullet : MonoBehaviour, IProjectile
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+
+        Destroy(gameObject);
+        try
         {
-            Destroy(gameObject);
             collision.gameObject.GetComponent<IHealth>().TakeDamage(20);
         }
-        else
-            Destroy(gameObject);
+        catch(NullReferenceException e)
+        {
+            Debug.Log(e);
+        }
     }
 }

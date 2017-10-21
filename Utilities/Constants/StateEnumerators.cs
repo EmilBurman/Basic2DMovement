@@ -37,4 +37,11 @@ namespace StateEnumerators
         UpLeft,
         Unknown
     }
+
+    public enum PatrolState
+    {
+        PatrolRight,
+        PatrolLeft,
+        Stop
+    }
 }

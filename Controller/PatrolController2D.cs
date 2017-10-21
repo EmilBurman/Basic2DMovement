@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StateEnumerators;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -102,17 +103,10 @@ public class PatrolController2D : MonoBehaviour, IController2D
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == Tags.PLAYER)
             collision.gameObject.GetComponent<IHealth>().TakeDamage(20);
     }
     void LoSCheck()
     {
     }
-}
-
-public enum PatrolState
-{
-    PatrolRight,
-    PatrolLeft,
-    Stop
 }

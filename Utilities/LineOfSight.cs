@@ -24,7 +24,7 @@ public class LineOfSight : MonoBehaviour
         ThisTransform = GetComponent<Transform>();
         ThisCollider = GetComponent<SphereCollider>();
         LastKnowSighting = ThisTransform.position;
-        Target = GameObject.FindGameObjectWithTag("Player").
+        Target = GameObject.FindGameObjectWithTag(Tags.PLAYER).
         GetComponent<Transform>();
     }
 
@@ -46,7 +46,7 @@ public class LineOfSight : MonoBehaviour
         RaycastHit Info;
         if (Physics.Raycast(EyePoint.position, (Target.position - EyePoint.position).normalized, out Info, ThisCollider.radius))
         {
-            if (Info.transform.CompareTag("Player"))
+            if (Info.transform.CompareTag(Tags.PLAYER))
                 return true;
         }
         return false;
@@ -75,7 +75,7 @@ public class LineOfSight : MonoBehaviour
 
     void OnTriggerExit(Collider Other)
     {
-        if (!Other.CompareTag("Player")) return;
+        if (!Other.CompareTag(Tags.PLAYER)) return;
         CanSeeTarget = false;
     }
 

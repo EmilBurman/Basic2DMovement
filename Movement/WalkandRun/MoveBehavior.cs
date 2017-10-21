@@ -37,14 +37,14 @@ public class MoveBehavior : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.gameObject.tag == "Platform")
+        if (c.gameObject.tag == Tags.PLATFORM)
         {
             transform.parent = c.gameObject.transform;
         }
     }
     void OnTriggerExit2D(Collider2D c)
     {
-        if (c.transform.tag == "Platform")
+        if (c.transform.tag == Tags.PLATFORM)
         {
             transform.parent = null;
         }
