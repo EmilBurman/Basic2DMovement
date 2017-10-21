@@ -35,7 +35,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
     // Set which entity to track
     public GameObject entity;
     new Rigidbody2D rigidbody2D;                        // Reference to the entity's rigidbody.
-    private ArrayList positionArray;
+    ArrayList positionArray;
     float interpolation;
 
     //Checks for if player is reversing
@@ -43,8 +43,9 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
     bool firstCycle = true;
 
     // Cooldown and state variables
-    private TimeState timeState;
+    TimeState timeState;
     public float reverseTimer; 			        // Shows the current cooldown.
+    IHealth invulnerableState;                  // Use to stop entity from taking damage while dashing
     float reverseCooldownLimit = 5f;        	// Sets the cooldown of the dash in seconds.
 
     //Determine how much to save
@@ -67,6 +68,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
     {
         positionArray = new ArrayList();
         returnPoint = GetComponent<SpawnChildEntity>();
+        invulnerableState = GetComponent<IHealth>();
         timeState = TimeState.Ready;
         returnPoint.SpawnObject(true);
         rigidbody2D = GetComponent<Rigidbody2D>();
@@ -116,6 +118,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
                 break;
             case TimeState.Reversing:
                 // Set the cooldown and initate cooldown state.
+                invulnerableState.Invulnerable(false);
                 reverseTimer += Time.deltaTime * 3;
                 if (reverseTimer > reverseCooldownLimit)
                 {
@@ -140,6 +143,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
     {
         while (isReversing)
         {
+            invulnerableState.Invulnerable(true);
             if (reverseCounter > 0)
                 reverseCounter -= 1;
             else

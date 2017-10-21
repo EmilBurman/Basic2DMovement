@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D), typeof(Rigidbody2D))]
@@ -12,7 +13,6 @@ public class Bullet : MonoBehaviour, IProjectile
     {
         this.direction = direction;
     }
-
     //End interface
 
     [Header("Bullet setup")]

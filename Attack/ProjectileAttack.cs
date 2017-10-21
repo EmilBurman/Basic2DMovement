@@ -72,22 +72,22 @@ public class ProjectileAttack : MonoBehaviour, IAttack
                     switch (projectileDirection)
                     {
                         case Directions.Right:
-                            offset.x += 0.6f;
+                            offset.x += 0.7f;
                             projectile = Instantiate(projectilePrefab, offset, Quaternion.Euler(0, 180, 0));
                             projectile.GetComponent<IProjectile>().SetDirection(Directions.Right);
                             break;
                         case Directions.Left:
-                            offset.x -= 0.6f;
+                            offset.x -= 0.7f;
                             projectile = Instantiate(projectilePrefab, offset, Quaternion.Euler(0, 180, 0));
                             projectile.GetComponent<IProjectile>().SetDirection(Directions.Left);
                             break;
                         case Directions.Up:
-                            offset.y += 0.6f;
+                            offset.y += 0.7f;
                             projectile = Instantiate(projectilePrefab, offset, Quaternion.Euler(0, 180, 0));
                             projectile.GetComponent<IProjectile>().SetDirection(Directions.Up);
                             break;
                         case Directions.Down:
-                            offset.y -= 0.6f;
+                            offset.y -= 0.7f;
                             projectile = Instantiate(projectilePrefab, offset, Quaternion.Euler(0, 180, 0));
                             projectile.GetComponent<IProjectile>().SetDirection(Directions.Down);
                             break;
