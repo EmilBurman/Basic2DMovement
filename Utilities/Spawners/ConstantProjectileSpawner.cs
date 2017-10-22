@@ -53,7 +53,6 @@ public class ConstantProjectileSpawner : MonoBehaviour
                         break;
                 }
                 attackState = AttackState.Attacking;
-
                 break;
             case AttackState.Attacking:
                 attackTimer += Time.deltaTime * 3;

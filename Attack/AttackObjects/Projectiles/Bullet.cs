@@ -13,10 +13,23 @@ public class Bullet : MonoBehaviour, IProjectile
     {
         this.direction = direction;
     }
+    public Directions GetDirection()
+    {
+        return direction;
+    }
+    public float GetKnockback()
+    {
+        return knockback;
+    }
+    public void SetSafeTags()
+    {
+
+    }
     //End interface
 
     [Header("Bullet setup")]
     public float bulletSpeed;
+    public float knockback;
 
     //Internal variables
     new CircleCollider2D collider;
@@ -57,13 +70,8 @@ public class Bullet : MonoBehaviour, IProjectile
     {
 
         Destroy(gameObject);
-        try
-        {
+        if (collision.gameObject.CompareTag(Tags.ENEMY) || collision.gameObject.CompareTag(Tags.PLAYER))
             collision.gameObject.GetComponent<IHealth>().TakeDamage(20);
-        }
-        catch(NullReferenceException e)
-        {
-            Debug.Log(e);
-        }
+
     }
 }
