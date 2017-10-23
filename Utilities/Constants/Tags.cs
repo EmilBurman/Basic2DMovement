@@ -10,6 +10,7 @@ public static class Tags
     public const string MAINCAMERA = "MainCamera";
     public const string PLATFORM = "Platform";
     public const string UNTAGGED = "Untagged";
+    public const string PROJECTILE = "Projectile";
 
     static string[] allTags = new string[] { PLAYER, ENEMY, PICKUP, MAINCAMERA, PLATFORM, UNTAGGED };
 }

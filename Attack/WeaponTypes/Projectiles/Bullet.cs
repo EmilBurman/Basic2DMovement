@@ -30,18 +30,17 @@ public class Bullet : MonoBehaviour, IProjectile
     [Header("Bullet setup")]
     public float bulletSpeed;
     public float knockback;
+    public float damage;
 
     //Internal variables
-    new CircleCollider2D collider;
     new Rigidbody2D rigidbody2D;
     Directions direction;
-    Vector2 target;
+    Vector2 targetDirection;
 
     // Use this for initialization
     void Awake()
     {
         transform.parent = null;
-        collider = GetComponent<CircleCollider2D>();
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -51,27 +50,27 @@ public class Bullet : MonoBehaviour, IProjectile
         switch (direction)
         {
             case Directions.Up:
-                target = new Vector2(0, bulletSpeed);
+                targetDirection = new Vector2(0, bulletSpeed);
                 break;
             case Directions.Down:
-                target = new Vector2(0, -bulletSpeed);
+                targetDirection = new Vector2(0, -bulletSpeed);
                 break;
             case Directions.Left:
-                target = new Vector2(-bulletSpeed, 0);
+                targetDirection = new Vector2(-bulletSpeed, 0);
                 break;
             case Directions.Right:
-                target = new Vector2(bulletSpeed, 0);
+                targetDirection = new Vector2(bulletSpeed, 0);
                 break;
         }
-        rigidbody2D.velocity = target;
+        rigidbody2D.velocity = targetDirection;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (!collision.gameObject.CompareTag(Tags.PROJECTILE))
+            Destroy(gameObject);
 
-        Destroy(gameObject);
         if (collision.gameObject.CompareTag(Tags.ENEMY) || collision.gameObject.CompareTag(Tags.PLAYER))
-            collision.gameObject.GetComponent<IHealth>().TakeDamage(20);
-
+            collision.gameObject.GetComponent<IHealth>().TakeDamage(damage);
     }
 }

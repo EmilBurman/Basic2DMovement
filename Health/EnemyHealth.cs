@@ -9,7 +9,7 @@ public class EnemyHealth : MonoBehaviour, IHealth
     {
         return currentHealth;
     }
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         // If the enemy is dead...
         if (isDead)
@@ -53,15 +53,15 @@ public class EnemyHealth : MonoBehaviour, IHealth
     //End interface--------------------------------------------
 
     [Header("Health setup.")]
-    public int startingHealth = 100;                            // The amount of health the entity starts the game with.
-    public int currentHealth;                                   // The current health of the entity.
+    public float startingHealth = 100;                            // The amount of health the entity starts the game with.
+    public float currentHealth;                                   // The current health of the entity.
     public AudioClip deathClip;                                 // The audio clip to play when the entity dies.
     public float sinkSpeed = 2.5f;              		// The speed at which the enemy sinks through the floor when dead.
 
 
     // Internal system variables.
     Animator anim;                              		// Reference to the animator.
-    AudioSource audioComponent;                     		// Reference to the audio source.
+    AudioSource audioComponent;                     	// Reference to the audio source.
     ParticleSystem hitParticles;                		// Reference to the particle system that plays when the enemy is damaged.
     CapsuleCollider capsuleCollider;            		// Reference to the capsule collider.
     bool isDead;                                		// Whether the enemy is dead.

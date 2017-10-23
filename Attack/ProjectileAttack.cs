@@ -108,7 +108,7 @@ public class ProjectileAttack : MonoBehaviour, IAttack
     Directions projectileDirection;
 
     //Internal variables
-    Rigidbody2D rigidbody2D;
+    new Rigidbody2D rigidbody2D;
     SpriteRenderer spriteRenderer;                              // Get entity sprite.
     float attackTimer;                                          // Shows the current cooldown.
     Vector2 offset;
