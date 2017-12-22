@@ -24,7 +24,7 @@ public class AllJump : MonoBehaviour, IJump
     {
         jumpTimeCounter = continuousJumpTime;
         SetCanAirJump(true);
-        if (jump && stoppedGroundJump)
+        if (jump && stoppedGroundJump && !stamina.StaminaRecharging())
         {
             needToReleaseJump = true;
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0f);
@@ -34,6 +34,7 @@ public class AllJump : MonoBehaviour, IJump
                 rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce / 1.2f);
 
             stoppedGroundJump = false;
+            stamina.LoseStamina(groundedStaminaLoss);
         }
         else
             ContinuousGroundedJump();
@@ -43,7 +44,7 @@ public class AllJump : MonoBehaviour, IJump
     {
         if (!stoppedGroundJump)
             ContinuousGroundedJump();
-        else if (jump && canAirJump && !needToReleaseJump)
+        else if (jump && canAirJump && !needToReleaseJump && !stamina.StaminaRecharging())
         {
             // If player wants to change direction, help them change.
             if (rigidbody2D.velocity.x > 0 && mySpriteRenderer.flipX)
@@ -56,6 +57,9 @@ public class AllJump : MonoBehaviour, IJump
             rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, jumpForce * 1.2f);
             timesJumped++;
             needToReleaseJump = true;
+
+            //Lose stamina due to jumping
+            stamina.LoseStamina(airborneStaminaLoss);
 
             if (timesJumped >= numberOfAirJumps)
                 canAirJump = false;
@@ -88,6 +92,8 @@ public class AllJump : MonoBehaviour, IJump
     public float jumpForce = 16f;                   // The height the player can jump
     public float continuousJumpTime;                // The time the player can continue to jump from the ground.
     public float wallJumpStaminaLoss;
+    public float groundedStaminaLoss;
+    public float airborneStaminaLoss;
 
     //Internal
     new Rigidbody2D rigidbody2D;                    // Reference to the player's rigidbody.

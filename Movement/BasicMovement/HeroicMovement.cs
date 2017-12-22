@@ -60,9 +60,6 @@ public class HeroicMovement : MonoBehaviour, IMovement
 
     public void Wallride(float horizontalAxis, bool sprint)
     {
-        if (!sprint)
-            StaminaGainCheck(sprint);
-
         if (!(rigidbody2D.velocity.y > -0.01f) && sprint && canWallRide)
         {
             rigidbody2D.AddForce(Vector2.up * Mathf.Abs(horizontalAxis * rigidbody2D.velocity.x * 1.3f), ForceMode2D.Impulse);

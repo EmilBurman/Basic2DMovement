@@ -192,9 +192,9 @@ public class ProjectileAttack : MonoBehaviour, IAttack
 
     void HorziontalFire(float hAxis)
     {
-        if (spriteRenderer.flipX)
+        if (hAxis < 0)
             projectileDirection = Directions.Left;
-        else if (!spriteRenderer.flipX)
+        else if (hAxis > 0)
             projectileDirection = Directions.Right;
     }
 
