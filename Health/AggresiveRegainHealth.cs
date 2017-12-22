@@ -10,6 +10,11 @@ public class AggresiveRegainHealth : MonoBehaviour, IHealth
     {
         return currentHealth;
     }
+
+    public void EarnHealth(float amount)
+    {
+
+    }
     public void TakeDamage(float amount)
     {
         if (!isInvulnerable)

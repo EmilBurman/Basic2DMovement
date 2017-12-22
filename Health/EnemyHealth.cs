@@ -9,6 +9,10 @@ public class EnemyHealth : MonoBehaviour, IHealth
     {
         return currentHealth;
     }
+    public void EarnHealth(float amount)
+    {
+
+    }
     public void TakeDamage(float amount)
     {
         // If the enemy is dead...

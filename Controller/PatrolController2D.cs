@@ -104,7 +104,7 @@ public class PatrolController2D : MonoBehaviour, IController2D
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == Tags.PLAYER)
-            collision.gameObject.GetComponent<IHealth>().TakeDamage(20);
+            collision.gameObject.GetComponent<IHealth>().TakeDamage(40);
     }
     void LoSCheck()
     {
