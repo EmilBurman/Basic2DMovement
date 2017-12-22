@@ -34,6 +34,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
 
     // Set which entity to track
     public GameObject entity;
+    public float staminaGain;
     new Rigidbody2D rigidbody2D;                        // Reference to the entity's rigidbody.
     ArrayList positionArray;
     float interpolation;
@@ -46,6 +47,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
     TimeState timeState;
     public float reverseTimer; 			        // Shows the current cooldown.
     IHealth invulnerableState;                  // Use to stop entity from taking damage while dashing
+    IStamina stamina;
     float reverseCooldownLimit = 5f;        	// Sets the cooldown of the dash in seconds.
 
     //Determine how much to save
@@ -72,6 +74,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
         timeState = TimeState.Ready;
         returnPoint.SpawnObject(true);
         rigidbody2D = GetComponent<Rigidbody2D>();
+        stamina = GetComponent<IStamina>();
     }
 
     void FixedUpdate()
@@ -157,6 +160,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
                 firstCycle = false;
                 RestorePositions();
             }
+            stamina.EarnStamina(staminaGain);
             interpolation = reverseCounter / keyframe;
             entity.transform.position = Vector2.Lerp(previousPosition, currentPosition, 1.2f * interpolation);
             yield return 0; //go to next frame

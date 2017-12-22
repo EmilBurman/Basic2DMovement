@@ -65,7 +65,7 @@ public class AllJump : MonoBehaviour, IJump
     public void RightWall(bool jump)
     {
         SetCanAirJump(true);
-        if (jump)
+        if (jump && !stamina.StaminaRecharging())
         {
             sideJump = new Vector2(-0.7f, 0.9f);
             WallJump();
@@ -75,7 +75,7 @@ public class AllJump : MonoBehaviour, IJump
     public void LeftWall(bool jump)
     {
         SetCanAirJump(true);
-        if (jump)
+        if (jump && !stamina.StaminaRecharging())
         {
             sideJump = new Vector2(0.7f, 0.9f);
             WallJump();
@@ -87,6 +87,7 @@ public class AllJump : MonoBehaviour, IJump
     public float numberOfAirJumps;
     public float jumpForce = 16f;                   // The height the player can jump
     public float continuousJumpTime;                // The time the player can continue to jump from the ground.
+    public float wallJumpStaminaLoss;
 
     //Internal
     new Rigidbody2D rigidbody2D;                    // Reference to the player's rigidbody.
@@ -99,12 +100,14 @@ public class AllJump : MonoBehaviour, IJump
     bool needToReleaseJump;                         // Checks if they player has released the jump button
     bool stoppedGroundJump;                         // Checks if the entity has stopped a grounded jump.
     Vector2 sideJump;                               // The angle when jumping from a wall.
+    IStamina stamina;
 
     void Awake()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         sideJumpForce = jumpForce * 1.2f;
+        stamina = GetComponent<IStamina>();
     }
 
     void SetCanAirJump(bool setDoubleJump)
@@ -120,6 +123,7 @@ public class AllJump : MonoBehaviour, IJump
             ContinuousGroundedJump();
         else if (!needToReleaseJump)
         {
+            stamina.LoseStamina(wallJumpStaminaLoss);
             rigidbody2D.velocity = new Vector2(0, 0);
             rigidbody2D.AddForce(sideJump * sideJumpForce, ForceMode2D.Impulse);
             needToReleaseJump = true;

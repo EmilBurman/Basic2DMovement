@@ -9,6 +9,7 @@ public class HeroicMovement : MonoBehaviour, IMovement
     public void Airborne(float horizontalAxis, bool sprint)
     {
         float airborneMovement = 0.5f;
+
         // Help change direction in the air to the right
         if (horizontalAxis > 0 && mySpriteRenderer.flipX)
         {
@@ -33,6 +34,11 @@ public class HeroicMovement : MonoBehaviour, IMovement
         if (rigidbody2D.velocity.y < -0.001)
             rigidbody2D.AddForce(Physics.gravity * 1.2f, ForceMode2D.Force);
         MovementSpeedClamp();
+
+        /*
+        if (sprint && !stamina.StaminaRecharging())
+            StaminaLossCheck(staminaLoss);
+        */
     }
 
     public void Grounded(float horizontalAxis, bool sprint)
@@ -40,22 +46,30 @@ public class HeroicMovement : MonoBehaviour, IMovement
         SetCanWallRide(true);
         rigidbody2D.velocity = new Vector2(horizontalAxis * moveSpeed, rigidbody2D.velocity.y);
 
-        if (sprint)
+        StaminaGainCheck(sprint);
+
+        if (sprint && !stamina.StaminaRecharging())
         {
             if (rigidbody2D.velocity.x > 0)
                 rigidbody2D.AddForce(vector2Right * (moveSpeed * sprintForceMultiplier), ForceMode2D.Force);
             else if (rigidbody2D.velocity.x < 0)
                 rigidbody2D.AddForce(vector2Left * (moveSpeed * sprintForceMultiplier), ForceMode2D.Force);
+            StaminaLossCheck(staminaLoss);
         }
     }
 
     public void Wallride(float horizontalAxis, bool sprint)
     {
-        if (rigidbody2D.velocity.y > -0.001 && sprint && canWallRide)
+        if (!sprint)
+            StaminaGainCheck(sprint);
+
+        if (!(rigidbody2D.velocity.y > -0.01f) && sprint && canWallRide)
         {
             rigidbody2D.AddForce(Vector2.up * Mathf.Abs(horizontalAxis * rigidbody2D.velocity.x * 1.3f), ForceMode2D.Impulse);
             canWallRide = false;
         }
+        else
+            Airborne(horizontalAxis, sprint);
         MovementSpeedClamp();
     }
     //End interface----------------------------------------
@@ -64,6 +78,8 @@ public class HeroicMovement : MonoBehaviour, IMovement
     [Header("Movement variables.")]
     public float moveSpeed = 8.0f;                          // The speed that the player will move at.
     public float sprintForceMultiplier = 40.0f;             // The factor which will * the player speed when sprinting.
+    public float staminaLoss;
+    public float staminaGain;
 
     //Internal variables
     bool canWallRide;                                       // Checks if the player can wallride
@@ -71,6 +87,7 @@ public class HeroicMovement : MonoBehaviour, IMovement
     SpriteRenderer mySpriteRenderer;                        // To get the current sprite.
     Vector2 vector2Right;
     Vector2 vector2Left;
+    IStamina stamina;
 
     // Use this for initialization
     void Awake()
@@ -78,6 +95,7 @@ public class HeroicMovement : MonoBehaviour, IMovement
         // Set up references.
         rigidbody2D = GetComponent<Rigidbody2D>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
+        stamina = GetComponent<IStamina>();
 
         //Create own definitions for left and right
         vector2Right = new Vector2(1f, rigidbody2D.velocity.y);
@@ -97,5 +115,16 @@ public class HeroicMovement : MonoBehaviour, IMovement
         //Harder clamp for y movement.
         if (rigidbody2D.velocity.y < -14f)
             rigidbody2D.velocity *= 0.97f;
+    }
+    void StaminaGainCheck(bool sprint)
+    {
+        if (!sprint && !stamina.StaminaRecharging())
+            stamina.EarnStamina(staminaGain);
+    }
+
+    void StaminaLossCheck(float loseAmount)
+    {
+        if ((rigidbody2D.velocity.x > 0 || rigidbody2D.velocity.x < 0) || (rigidbody2D.velocity.y > 0 || rigidbody2D.velocity.y < 0))
+            stamina.LoseStamina(loseAmount);
     }
 }

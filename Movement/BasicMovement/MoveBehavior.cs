@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MoveBehavior : MonoBehaviour
 {
-    private IController2D controller;
-    private ITerrainState stateMachine;
-    private IMovement move;
+    IController2D controller;
+    ITerrainState stateMachine;
+    IMovement move;
 
     void Awake()
     {

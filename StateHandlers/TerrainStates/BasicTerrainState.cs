@@ -64,6 +64,8 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
     // Internal system variables.
     new Rigidbody2D rigidbody2D;                                    // Reference to the player's rigidbody.
     bool grounded;
+    bool wallLeft;
+    bool wallRight;
 
     // Use this for initialization
     void Start()
@@ -86,7 +88,7 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
 
         bool groundLeftCheck = Physics2D.Raycast(new Vector2(rigidbody2D.transform.position.x - groundCheckSpacing, rigidbody2D.transform.position.y - yAxisExtendFromCollider), Vector2.down, groundDistanceCheck, groundLayer);
         Debug.DrawRay(new Vector2(rigidbody2D.transform.position.x - groundCheckSpacing, rigidbody2D.transform.position.y - yAxisExtendFromCollider), Vector2.down, color = Color.red, 0.1f);
-        if (!groundLeftCheck && !groundCenterCheck && !groundRightCheck)
+        if (!(groundLeftCheck && groundCenterCheck && groundRightCheck))
             Invoke("CoyoteTime", 0.2f);
         else
             grounded = true;
@@ -105,7 +107,12 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
         bool leftTopCheck = Physics2D.Raycast(new Vector2(rigidbody2D.transform.position.x - xAxisExtendFromCollider, rigidbody2D.transform.position.y + wallCheckSpacing), Vector2.left, wallDistanceCheck, wallLayer);
         Debug.DrawRay(new Vector2(rigidbody2D.transform.position.x - xAxisExtendFromCollider, rigidbody2D.transform.position.y + wallCheckSpacing), Vector2.left, color = Color.red, 0.1f);
 
-        return (leftCenterCheck || leftBottomCheck || leftTopCheck) ? true : false;
+        if (!(leftCenterCheck && leftBottomCheck && leftTopCheck))
+            Invoke("CoyoteTimeLeft", 0.1f);
+        else
+            wallLeft = true;
+
+        return wallLeft ? true : false;
     }
     bool CheckWallRight()
     {
@@ -119,7 +126,12 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
         bool rightTopCheck = Physics2D.Raycast(new Vector2(rigidbody2D.transform.position.x + xAxisExtendFromCollider, rigidbody2D.transform.position.y + wallCheckSpacing), Vector2.right, wallDistanceCheck, wallLayer);
         Debug.DrawRay(new Vector2(rigidbody2D.transform.position.x + xAxisExtendFromCollider, rigidbody2D.transform.position.y + wallCheckSpacing), Vector2.right, color = Color.red, 0.1f);
 
-        return (rightCenterCheck || rightBottomCheck || rightTopCheck) ? true : false;
+        if (!(rightCenterCheck && rightBottomCheck && rightTopCheck))
+            Invoke("CoyoteTimeRight", 0.1f);
+        else
+            wallRight = true;
+
+        return wallRight ? true : false;
     }
     bool CheckEdgeRight()
     {
@@ -141,5 +153,13 @@ public class BasicTerrainState : MonoBehaviour, ITerrainState
     void CoyoteTime()
     {
         grounded = false;
+    }
+    void CoyoteTimeLeft()
+    {
+        wallLeft = false;
+    }
+    void CoyoteTimeRight()
+    {
+        wallRight = false;
     }
 }

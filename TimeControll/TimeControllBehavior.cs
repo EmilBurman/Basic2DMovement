@@ -5,8 +5,8 @@ using UnityEngine;
 public class TimeControllBehavior : MonoBehaviour
 {
 
-    private IController2D controller;
-    private ITimeControll timeControll;
+    IController2D controller;
+    ITimeControll timeControll;
 
     void Awake()
     {

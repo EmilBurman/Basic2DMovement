@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DashBehavior : MonoBehaviour
 {
-    private IController2D controller;
-    private ITerrainState stateMachine;
-    private IDash dash;
+    IController2D controller;
+    ITerrainState stateMachine;
+    IDash dash;
 
     void Awake()
     {
