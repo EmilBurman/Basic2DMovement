@@ -13,7 +13,24 @@ public class AggresiveRegainHealth : MonoBehaviour, IHealth
 
     public void EarnHealth(float amount)
     {
-
+        if (canEarnBackHealth)
+        {
+            if (amount > returnableHealth)
+            {
+                currentHealth += returnableHealth;
+                returnableHealth = 0;
+                canEarnBackHealth = false;
+            }
+            else
+            {
+                currentHealth += amount;
+                returnableHealth -= amount;
+            }
+        }
+    }
+    public bool CanEarnBackHealth()
+    {
+        return canEarnBackHealth;
     }
     public void TakeDamage(float amount)
     {
@@ -21,6 +38,9 @@ public class AggresiveRegainHealth : MonoBehaviour, IHealth
         {
             // Set the damaged flag so the screen will flash.
             damaged = true;
+
+            // Initiate window for return of health.
+            RegainHealth(amount);
 
             // Reduce the current health by the damage amount.
             currentHealth -= amount;
@@ -76,6 +96,8 @@ public class AggresiveRegainHealth : MonoBehaviour, IHealth
     AudioSource audioComponent;                                 // Reference to the AudioSource component.
     bool isDead;                                                // Whether the entity is dead.
     bool damaged;                                               // True when the player gets damaged.
+    float returnableHealth;                                     // Amount player can earn back due to aggresive attacks
+    bool canEarnBackHealth;                                     // Internal variable if the player can earn back health
 
     void Awake()
     {
@@ -104,5 +126,10 @@ public class AggresiveRegainHealth : MonoBehaviour, IHealth
 
             // Reset the damaged flag.
             damaged = false;
+    }
+    void RegainHealth(float amount)
+    {
+        canEarnBackHealth = true;
+        returnableHealth = amount;
     }
 }
