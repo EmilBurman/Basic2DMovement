@@ -10,7 +10,6 @@ public class AggresiveRegainHealth : MonoBehaviour, IHealth
     {
         return currentHealth;
     }
-
     public void EarnHealth(float amount)
     {
         if (canEarnBackHealth)
@@ -55,13 +54,11 @@ public class AggresiveRegainHealth : MonoBehaviour, IHealth
         }
         healthSlider.value = currentHealth;
     }
-
     public bool Invulnerable(bool state)
     {
         isInvulnerable = state;
         return isInvulnerable;
     }
-
     public void Death()
     {
         // Set the death flag so this function won't be called again.

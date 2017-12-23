@@ -13,6 +13,10 @@ public class EnemyHealth : MonoBehaviour, IHealth
     {
 
     }
+    public bool CanEarnBackHealth()
+    {
+        return false;
+    }
     public void TakeDamage(float amount)
     {
         // If the enemy is dead...
