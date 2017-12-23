@@ -36,10 +36,12 @@ public class Bullet : MonoBehaviour, IProjectile
     new Rigidbody2D rigidbody2D;
     Directions direction;
     Vector2 targetDirection;
+    IHealth parentHealth;
 
     // Use this for initialization
     void Awake()
     {
+        parentHealth = GetComponentInParent<IHealth>();
         transform.parent = null;
         rigidbody2D = GetComponent<Rigidbody2D>();
     }
@@ -71,6 +73,10 @@ public class Bullet : MonoBehaviour, IProjectile
             Destroy(gameObject);
 
         if (collision.gameObject.CompareTag(Tags.ENEMY) || collision.gameObject.CompareTag(Tags.PLAYER))
+        {
+            if (parentHealth.CanEarnBackHealth())
+                parentHealth.EarnHealth(damage/1.5f);
             collision.gameObject.GetComponent<IHealth>().TakeDamage(damage);
+        }
     }
 }

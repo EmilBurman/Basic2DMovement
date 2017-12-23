@@ -19,7 +19,7 @@ public class BasicStamina : MonoBehaviour, IStamina
     public void EarnStamina(float staminaGain)
     {
         //Increase the stamina by the earn amount.
-        if (currentStamina < 100)
+        if (currentStamina < maxStamina)
             currentStamina += staminaGain * Time.deltaTime;
 
         // Update the slider value
@@ -41,6 +41,7 @@ public class BasicStamina : MonoBehaviour, IStamina
     public Slider staminaSlider;                                    // Reference to the UI's stamina bar.
 
     float staminaLoss;
+    float maxStamina;
     bool rechargingStamina = false;
     public Image fillImage;
 
@@ -48,6 +49,7 @@ public class BasicStamina : MonoBehaviour, IStamina
     {
         // Set the initial stamina of the entity.
         currentStamina = startingStamina;
+        maxStamina = staminaSlider.maxValue;
     }
     IEnumerator Exhausted()
     {

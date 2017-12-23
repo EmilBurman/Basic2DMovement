@@ -10,6 +10,7 @@ public class AggresiveRegainHealth : MonoBehaviour, IHealth
     {
         return currentHealth;
     }
+
     public void EarnHealth(float amount)
     {
         if (canEarnBackHealth)
@@ -26,6 +27,10 @@ public class AggresiveRegainHealth : MonoBehaviour, IHealth
                 returnableHealth -= amount;
             }
         }
+        else if (currentHealth < maxHealth)
+            currentHealth += amount;
+
+        healthSlider.value = currentHealth;
     }
     public bool CanEarnBackHealth()
     {
@@ -95,12 +100,14 @@ public class AggresiveRegainHealth : MonoBehaviour, IHealth
     bool damaged;                                               // True when the player gets damaged.
     float returnableHealth;                                     // Amount player can earn back due to aggresive attacks
     bool canEarnBackHealth;                                     // Internal variable if the player can earn back health
+    float maxHealth;
 
     void Awake()
     {
         // Setting up the references.
         anim = GetComponent<Animator>();
         audioComponent = GetComponent<AudioSource>();
+        maxHealth = healthSlider.maxValue;
 
         // Set the initial health of the entity.
         currentHealth = startingHealth;
