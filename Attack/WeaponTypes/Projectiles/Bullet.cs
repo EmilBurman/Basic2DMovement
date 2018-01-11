@@ -32,10 +32,16 @@ public class Bullet : MonoBehaviour, IProjectile
     new Rigidbody2D rigidbody2D;
     Directions direction;
     Vector2 targetDirection;
+    IHealth parentHealth;
 
     // Use this for initialization
     void Awake()
     {
+        if (transform.parent != null && (transform.parent.tag == Tags.PLAYER || transform.parent.tag == Tags.ENEMY))
+        {
+            parentHealth = GetComponent<IHealth>();
+            Debug.Log("Success");
+        }
         transform.parent = null;
         rigidbody2D = GetComponent<Rigidbody2D>();
     }

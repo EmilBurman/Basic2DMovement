@@ -69,6 +69,7 @@ public class BasicTimeControll : MonoBehaviour, ITimeControll
     void Awake()
     {
         positionArray = new ArrayList();
+        positionArray.Add(new PositionArray(entity.transform.position));
         returnPoint = GetComponent<SpawnChildEntity>();
         invulnerableState = GetComponent<IHealth>();
         timeState = TimeState.Ready;

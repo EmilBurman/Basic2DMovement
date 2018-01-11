@@ -39,6 +39,7 @@ public class ConstantProjectileSpawner : MonoBehaviour
                     case Directions.Left:
                         offset.x -= 0.6f;
                         projectile = Instantiate(projectilePrefab, offset, Quaternion.Euler(0, 180, 0));
+                        projectile.transform.parent = gameObject.transform;
                         projectile.GetComponent<IProjectile>().SetDirection(Directions.Left);
                         break;
                     case Directions.Up:
